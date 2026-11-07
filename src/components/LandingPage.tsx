@@ -20,16 +20,93 @@ import {
   Zap,
   Star,
   Activity,
-  Layers,
-  Phone,
-  SlidersHorizontal,
+  Package,
+  Search,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { BrandLogo } from './BrandLogo';
+import { ProductArtwork } from './ProductArtwork';
+import { Product } from '../types';
 
 export const LandingPage: React.FC = () => {
-  const { setCurrentView, setActiveTab, setBrandModalOpen, metrics, units, products, transfers } = useApp();
-  const [activePreviewTab, setActivePreviewTab] = useState<'kpis' | 'transfers' | 'stores'>('kpis');
+  const {
+    setCurrentView,
+    setActiveTab,
+    setBrandModalOpen,
+    metrics,
+    units,
+    products,
+    registerSale,
+    executeTransfer,
+  } = useApp();
+  const [activePreviewTab, setActivePreviewTab] = useState<'kpis' | 'catalog' | 'transfers' | 'stores'>('kpis');
+
+  // Landing Page Full Catalog Filter state
+  const [catalogCategory, setCatalogCategory] = useState<string>('all');
+  const [catalogSearch, setCatalogSearch] = useState<string>('');
+  const [catalogToast, setCatalogToast] = useState<string | null>(null);
+
+  const showCatalogToast = (msg: string) => {
+    setCatalogToast(msg);
+    setTimeout(() => setCatalogToast(null), 3500);
+  };
+
+  const handleLandingQuickSale = (product: Product) => {
+    const unitId = (product.stock['unit-01'] || 0) > 0 ? 'unit-01' : 'unit-02';
+    const res = registerSale({
+      unitId,
+      items: [{ productId: product.id, quantity: 1, unitPrice: product.sellingPrice }],
+      paymentMethod: 'Pix',
+      operatorName: 'Vitrine Interativa TwoNine',
+    });
+    if (res.success) {
+      showCatalogToast(
+        `🛒 Venda demonstrativa: 1x ${product.name} (R$ ${product.sellingPrice.toFixed(2)}) baixada do estoque da ${
+          unitId === 'unit-01' ? 'Vila Buritis' : 'Setor Tradicional'
+        }!`
+      );
+    } else {
+      showCatalogToast(res.message);
+    }
+  };
+
+  const handleLandingQuickTransfer = (product: Product) => {
+    const q1 = product.stock['unit-01'] || 0;
+    const q2 = product.stock['unit-02'] || 0;
+    const fromUnitId = q1 >= q2 ? 'unit-01' : 'unit-02';
+    const toUnitId = fromUnitId === 'unit-01' ? 'unit-02' : 'unit-01';
+    const qty = Math.min(5, product.stock[fromUnitId] || 0);
+    if (qty <= 0) return;
+
+    const res = executeTransfer({
+      fromUnitId,
+      toUnitId,
+      productId: product.id,
+      quantity: qty,
+      status: 'concluida',
+      requester: 'Catálogo Interativo TwoNine',
+      notes: 'Transferência rápida acionada pelo catálogo',
+    });
+    if (res.success) {
+      showCatalogToast(
+        `⇄ Transferência concluída: ${qty} ${product.unit} de ${product.name} enviados para ${
+          toUnitId === 'unit-01' ? 'Vila Buritis' : 'Setor Tradicional'
+        }!`
+      );
+    }
+  };
+
+  const filteredCatalogProducts = products.filter((p) => {
+    const matchesCat = catalogCategory === 'all' || p.category === catalogCategory;
+    const q = catalogSearch.toLowerCase();
+    const matchesSearch =
+      !q ||
+      p.name.toLowerCase().includes(q) ||
+      p.sku.toLowerCase().includes(q) ||
+      (p.brand && p.brand.toLowerCase().includes(q)) ||
+      (p.flavorOrSpec && p.flavorOrSpec.toLowerCase().includes(q));
+    return matchesCat && matchesSearch;
+  });
 
   // Interactive Live Hero Mini-Transfer Simulator state
   const [simulatedBuritisStock, setSimulatedBuritisStock] = useState(48);
@@ -151,7 +228,7 @@ export const LandingPage: React.FC = () => {
               </span>
             </div>
 
-            {/* LUXURY TRIPLE ACTION BUTTONS */}
+            {/* LUXURY ACTION BUTTONS */}
             <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
               <button
                 onClick={() => setCurrentView('dashboard')}
@@ -164,21 +241,18 @@ export const LandingPage: React.FC = () => {
 
               <button
                 onClick={() => scrollToSection('vitrine-tabacaria')}
-                className="flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-rose-500/30 hover:border-rose-500/60 font-bold text-sm sm:text-base transition shadow-lg backdrop-blur-md hover:text-white"
+                className="flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-950/80 via-rose-950/70 to-slate-900 hover:from-rose-900 hover:to-pink-900 text-white border border-pink-500/50 hover:border-pink-400 font-black text-sm sm:text-base transition shadow-[0_0_30px_rgba(236,72,153,0.3)] backdrop-blur-md"
               >
-                <Flame className="w-4 h-4 text-rose-500" />
-                <span>Conhecer a plataforma</span>
+                <Package className="w-4 h-4 text-pink-400" />
+                <span>Ver Catálogo Fictício 3D ({products.length} Itens)</span>
               </button>
 
               <button
-                onClick={() => {
-                  setCurrentView('dashboard');
-                  setActiveTab('overview');
-                }}
-                className="flex items-center gap-2.5 px-7 py-4 rounded-2xl bg-gradient-to-r from-rose-950/60 via-slate-900 to-pink-950/60 hover:from-rose-900/80 hover:to-pink-900/80 text-rose-300 hover:text-white border border-rose-500/40 hover:border-rose-500/80 font-bold text-xs sm:text-sm transition shadow-lg backdrop-blur-md"
+                onClick={() => scrollToSection('gestao-centralizada')}
+                className="flex items-center gap-2.5 px-7 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-rose-500/30 hover:border-rose-500/60 font-bold text-xs sm:text-sm transition shadow-lg backdrop-blur-md hover:text-white"
               >
-                <Zap className="w-4 h-4 text-amber-400" />
-                <span>Abrir Painel ERP Completo</span>
+                <Flame className="w-4 h-4 text-rose-500" />
+                <span>Conhecer a plataforma</span>
               </button>
             </div>
 
@@ -227,7 +301,7 @@ export const LandingPage: React.FC = () => {
               </div>
 
               {/* Interactive Tabs inside Mockup */}
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <button
                   onClick={() => setActivePreviewTab('kpis')}
                   className={`px-4 py-2 text-xs font-bold rounded-xl transition flex items-center gap-2 ${
@@ -238,6 +312,17 @@ export const LandingPage: React.FC = () => {
                 >
                   <BarChart3 className="w-3.5 h-3.5" />
                   <span>Cockpit Consolidado</span>
+                </button>
+                <button
+                  onClick={() => setActivePreviewTab('catalog')}
+                  className={`px-4 py-2 text-xs font-bold rounded-xl transition flex items-center gap-2 ${
+                    activePreviewTab === 'catalog'
+                      ? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-lg shadow-rose-950/60'
+                      : 'text-pink-300 hover:text-white bg-rose-950/40 border border-rose-500/30 hover:bg-rose-900/50'
+                  }`}
+                >
+                  <Package className="w-3.5 h-3.5 text-pink-400" />
+                  <span>Catálogo Fictício 3D ({products.length} SKUs)</span>
                 </button>
                 <button
                   onClick={() => setActivePreviewTab('transfers')}
@@ -546,6 +631,45 @@ export const LandingPage: React.FC = () => {
                     </div>
                   </div>
 
+                  {/* MINI 3D FICTITIOUS CATALOG PREVIEW STRIP INSIDE HERO COCKPIT */}
+                  <div className="pt-2 space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="text-xs font-mono font-bold uppercase text-pink-400 flex items-center gap-2">
+                        <Package className="w-4 h-4 text-rose-500" />
+                        Vitrine Rápida — Catálogo Fictício 3D (Destaques de Alto Giro)
+                      </span>
+                      <button
+                        onClick={() => scrollToSection('vitrine-tabacaria')}
+                        className="text-xs font-bold text-rose-400 hover:text-rose-300 flex items-center gap-1"
+                      >
+                        <span>Ver todos os {products.length} produtos do catálogo abaixo</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                      {products.slice(0, 4).map((prod) => (
+                        <div
+                          key={prod.id}
+                          className="group glass-card-cockpit rounded-2xl p-3.5 flex flex-col justify-between space-y-3"
+                        >
+                          <ProductArtwork product={prod} height="h-36" />
+                          <div className="space-y-1">
+                            <div className="flex items-center justify-between text-[10px] font-mono">
+                              <span className="text-rose-400 font-bold">{prod.brand || prod.category}</span>
+                              <span className="text-emerald-400 font-black">R$ {prod.sellingPrice.toFixed(2)}</span>
+                            </div>
+                            <div className="text-xs font-black text-white line-clamp-1">{prod.name}</div>
+                            <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono pt-1 border-t border-slate-800/80">
+                              <span>Buritis: {prod.stock['unit-01'] || 0} {prod.unit}</span>
+                              <span>Trad.: {prod.stock['unit-02'] || 0} {prod.unit}</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* DIRECT LAUNCH CTA BANNER INSIDE MOCKUP */}
                   <div className="p-5 rounded-2xl bg-gradient-to-r from-rose-950/60 via-slate-900 to-pink-950/60 border border-rose-500/35 flex flex-col md:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
@@ -557,20 +681,87 @@ export const LandingPage: React.FC = () => {
                           Pronto para gerenciar as duas unidades da TwoNine com máxima precisão?
                         </div>
                         <div className="text-xs text-slate-400">
-                          Acesse o sistema completo com 11 módulos ativos, PDV, estoque multi-loja e auditoria.
+                          Acesse o sistema completo com Catálogo 3D, PDV de balcão, estoque multi-loja e auditoria.
                         </div>
                       </div>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                      <button
+                        onClick={() => {
+                          setCurrentView('dashboard');
+                          setActiveTab('products');
+                        }}
+                        className="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-pink-300 border border-pink-500/40 font-black text-xs flex items-center gap-2 transition"
+                      >
+                        <Package className="w-4 h-4 text-pink-400" />
+                        <span>Abrir Catálogo no ERP</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          setCurrentView('dashboard');
+                          setActiveTab('overview');
+                        }}
+                        className="btn-neon-luxe px-7 py-3 rounded-xl text-white font-black text-xs flex items-center gap-2"
+                      >
+                        <span>Acessar Painel TWONINE MANAGER</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* TAB: CATÁLOGO FICTÍCIO 3D DIRETO NO HERO */}
+              {activePreviewTab === 'catalog' && (
+                <div className="space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div>
+                      <span className="text-xs font-mono uppercase text-rose-400 font-bold">
+                        Catálogo Fictício Oficial TwoNine (18+)
+                      </span>
+                      <h3 className="text-lg font-black text-white">
+                        {products.length} Produtos de Tabacaria, Hookah & Conveniência 24h
+                      </h3>
                     </div>
                     <button
                       onClick={() => {
                         setCurrentView('dashboard');
-                        setActiveTab('overview');
+                        setActiveTab('products');
                       }}
-                      className="btn-neon-luxe px-7 py-3 rounded-xl text-white font-black text-xs shrink-0 flex items-center gap-2"
+                      className="btn-neon-luxe px-5 py-2.5 rounded-xl text-white text-xs font-black flex items-center gap-2 self-start sm:self-auto"
                     >
-                      <span>Acessar Painel TWONINE MANAGER</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <Package className="w-4 h-4" />
+                      <span>Abrir Showroom Completo no ERP</span>
                     </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {products.slice(0, 8).map((prod) => (
+                      <div
+                        key={prod.id}
+                        className="group glass-card-cockpit rounded-2xl p-3.5 flex flex-col justify-between space-y-3"
+                      >
+                        <ProductArtwork product={prod} height="h-40" />
+                        <div className="space-y-1.5">
+                          <div className="flex items-center justify-between text-[10px] font-mono">
+                            <span className="text-rose-400 font-bold">{prod.brand || prod.category}</span>
+                            <span className="text-white font-black text-sm">R$ {prod.sellingPrice.toFixed(2)}</span>
+                          </div>
+                          <div className="text-xs font-black text-white line-clamp-1">{prod.name}</div>
+                          <div className="text-[11px] text-slate-400 line-clamp-1">{prod.flavorOrSpec}</div>
+                          <div className="grid grid-cols-2 gap-1.5 pt-2 text-[10px] font-mono">
+                            <div className="p-1.5 rounded-lg bg-slate-950 border border-slate-800 text-center">
+                              <span className="text-slate-400 block">Buritis</span>
+                              <strong className="text-emerald-400">{prod.stock['unit-01'] || 0} {prod.unit}</strong>
+                            </div>
+                            <div className="p-1.5 rounded-lg bg-slate-950 border border-slate-800 text-center">
+                              <span className="text-slate-400 block">Tradicional</span>
+                              <strong className="text-amber-400">{prod.stock['unit-02'] || 0} {prod.unit}</strong>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
@@ -683,101 +874,188 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* LUXURY PRODUCT CATEGORIES SHOWCASE (VITRINE COMERCIAL TABACARIA) */}
-      <section id="vitrine-tabacaria" className="py-20 border-b border-rose-950/40 bg-slate-950/70">
-        <div className="w-[94%] max-w-[1800px] mx-auto space-y-12">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-mono font-bold">
-              <span>🔞</span> LINHA DE PRODUTOS & INSUMOS
+      {/* FLOATING TOAST FOR CATALOG INTERACTIONS */}
+      {catalogToast && (
+        <div className="fixed bottom-6 right-6 z-50 max-w-md px-5 py-4 rounded-2xl bg-emerald-950/95 border border-emerald-500/50 text-emerald-200 shadow-2xl backdrop-blur-xl flex items-center gap-3 animate-in fade-in duration-200">
+          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+          <span className="text-xs font-bold leading-snug">{catalogToast}</span>
+        </div>
+      )}
+
+      {/* MONUMENTAL INTERACTIVE 3D FICTITIOUS PRODUCT CATALOG (VITRINE COMERCIAL TABACARIA) */}
+      <section id="vitrine-tabacaria" className="py-24 border-b border-rose-950/40 bg-[#05070F]/90 relative">
+        <div className="w-[94%] max-w-[1840px] mx-auto space-y-12 relative z-10">
+          {/* Section Header */}
+          <div className="text-center max-w-4xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/15 border border-rose-500/35 text-rose-300 text-xs font-mono font-extrabold shadow-[0_0_25px_rgba(244,63,94,0.25)]">
+              <span>🔞</span>
+              <span>CATÁLOGO FICTÍCIO INTERATIVO • {products.length} PRODUTOS EM VITRINE 3D</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-              Os Pilares do Lounge & Balcão 24h
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight">
+              Showroom & Catálogo de Produtos{' '}
+              <span className="bg-gradient-to-r from-rose-500 via-pink-400 to-amber-300 bg-clip-text text-transparent">
+                TwoNine 24 Horas
+              </span>
             </h2>
-            <p className="text-slate-400 text-sm leading-relaxed">
-              Insumos de procedência garantida para a melhor sessão de narguile e conveniência do Distrito Federal.
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+              Explore o catálogo demonstrativo completo da <strong className="text-white">TwoNine Conveniência & Tabacaria</strong>. Cada produto possui embalagem ilustrada em 3D, custo de lote, preço de balcão, margem de lucro e saldo em tempo real nas unidades <strong className="text-rose-400">Vila Buritis (24h)</strong> e <strong className="text-amber-400">Setor Tradicional</strong>.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Card 1 */}
-            <div className="glass-panel glass-panel-hover p-6 rounded-3xl space-y-4 relative overflow-hidden group">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-600 to-pink-500 p-3 flex items-center justify-center text-white shadow-lg shadow-rose-950/60">
-                <Flame className="w-8 h-8" />
+          {/* Interactive Filter & Search Bar */}
+          <div className="p-5 rounded-3xl glass-panel-ultra space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              {/* Category Pills */}
+              <div className="flex items-center gap-2 overflow-x-auto pb-1">
+                {[
+                  { id: 'all', label: `Todos os Produtos (${products.length})`, emoji: '✨' },
+                  { id: 'Tabacaria & Hookah', label: 'Essências & Pods', emoji: '💨' },
+                  { id: 'Carvões & Insumos', label: 'Carvões & Alumínio', emoji: '🥥' },
+                  { id: 'Gelo & Copos', label: 'Gelos & Copão 700ml', emoji: '🧊' },
+                  { id: 'Bebidas & Energéticos', label: 'Bebidas & Energéticos', emoji: '⚡' },
+                  { id: 'Acessórios & Headshop', label: 'Headshop & Narguilés', emoji: '🔥' },
+                  { id: 'Snacks & Bomboniere', label: 'Snacks & Bomboniere', emoji: '🍫' },
+                ].map((cat) => {
+                  const isActive = catalogCategory === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => setCatalogCategory(cat.id)}
+                      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all ${
+                        isActive
+                          ? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-lg shadow-rose-950/60 scale-[1.02]'
+                          : 'bg-slate-950/90 text-slate-400 hover:text-white border border-slate-800 hover:border-rose-500/40'
+                      }`}
+                    >
+                      <span>{cat.emoji}</span>
+                      <span>{cat.label}</span>
+                    </button>
+                  );
+                })}
               </div>
-              <div>
-                <span className="text-[10px] font-mono text-pink-400 font-bold uppercase tracking-wider">
-                  Tabacaria & Hookah
-                </span>
-                <h3 className="text-lg font-bold text-white mt-1">Essências Selecionadas</h3>
-                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                  Sabores campeões das linhas Nay, Zomo, Ziggy e On-Air com rotação semanal e reposição em caixas fechadas.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-rose-950/60 flex items-center justify-between text-xs">
-                <span className="text-slate-400">Controle por unidade</span>
-                <span className="text-pink-400 font-mono font-bold">18+ Lounge</span>
-              </div>
-            </div>
 
-            {/* Card 2 */}
-            <div className="glass-panel glass-panel-hover p-6 rounded-3xl space-y-4 relative overflow-hidden group">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-600 to-rose-700 p-3 flex items-center justify-center text-white shadow-lg shadow-rose-950/60">
-                <Boxes className="w-8 h-8" />
-              </div>
-              <div>
-                <span className="text-[10px] font-mono text-rose-400 font-bold uppercase tracking-wider">
-                  Insumos de Queima
-                </span>
-                <h3 className="text-lg font-bold text-white mt-1">Carvão de Coco & Alumínio</h3>
-                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                  Carvões hexagonais Art Coco e Calesco de longa duração (1kg), sem odor e papel alumínio 40 micras esticado.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-rose-950/60 flex items-center justify-between text-xs">
-                <span className="text-slate-400">Transferência rápida</span>
-                <span className="text-rose-400 font-mono font-bold">Alta Densidade</span>
+              {/* Search Input */}
+              <div className="relative w-full md:w-80">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={catalogSearch}
+                  onChange={(e) => setCatalogSearch(e.target.value)}
+                  placeholder="Buscar Nay, Zomo, Ignite, Art Coco, Baly..."
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500"
+                />
               </div>
             </div>
+          </div>
 
-            {/* Card 3 */}
-            <div className="glass-panel glass-panel-hover p-6 rounded-3xl space-y-4 relative overflow-hidden group">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-500 to-amber-500 p-3 flex items-center justify-center text-white shadow-lg shadow-rose-950/60">
-                <Zap className="w-8 h-8" />
-              </div>
-              <div>
-                <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">
-                  Bebidas & Montagem
-                </span>
-                <h3 className="text-lg font-bold text-white mt-1">Gelo de Sabor & Copão 700ml</h3>
-                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                  Gelos gourmet de coco com maracujá, copos Twister com tampa bolha e energéticos Baly, Monster e Red Bull.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-rose-950/60 flex items-center justify-between text-xs">
-                <span className="text-slate-400">Pico noturno</span>
-                <span className="text-amber-400 font-mono font-bold">24 Horas</span>
-              </div>
-            </div>
+          {/* 3D PRODUCT CARDS GRID */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredCatalogProducts.map((product) => {
+              const qBuritis = product.stock['unit-01'] || 0;
+              const qTradicional = product.stock['unit-02'] || 0;
+              const qTotal = qBuritis + qTradicional;
+              const profit = product.sellingPrice - product.costPrice;
 
-            {/* Card 4 */}
-            <div className="glass-panel glass-panel-hover p-6 rounded-3xl space-y-4 relative overflow-hidden group">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-600 p-3 flex items-center justify-center text-white shadow-lg shadow-rose-950/60">
-                <Sparkles className="w-8 h-8" />
-              </div>
-              <div>
-                <span className="text-[10px] font-mono text-pink-400 font-bold uppercase tracking-wider">
-                  Tabacaria & Headshop
-                </span>
-                <h3 className="text-lg font-bold text-white mt-1">Clippers, Sedas & Roshs</h3>
-                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                  Isqueiros Clipper recarregáveis colecionáveis, sedas Smoking Master King Size com piteira e roshs Phunnel.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-rose-950/60 flex items-center justify-between text-xs">
-                <span className="text-slate-400">Conveniência balcão</span>
-                <span className="text-pink-400 font-mono font-bold">Linha Premium</span>
-              </div>
-            </div>
+              return (
+                <div
+                  key={product.id}
+                  className="group glass-card-cockpit rounded-3xl p-4 flex flex-col justify-between space-y-4 relative overflow-hidden"
+                >
+                  {/* Top: 3D Studio Render + Info */}
+                  <div className="space-y-3">
+                    <ProductArtwork product={product} height="h-48" />
+
+                    <div className="space-y-1 px-1">
+                      <div className="flex items-center justify-between text-[10px] font-mono">
+                        <span className="text-rose-400 font-extrabold uppercase tracking-wider">
+                          {product.brand || product.category}
+                        </span>
+                        <span className="text-slate-400">{product.category}</span>
+                      </div>
+
+                      <h3 className="text-base font-black text-white group-hover:text-rose-300 transition line-clamp-1">
+                        {product.name}
+                      </h3>
+
+                      <p className="text-xs text-slate-400 line-clamp-1">
+                        {product.flavorOrSpec || product.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Bottom: Pricing, Dual-Store Stocks & Live Interactive Buttons */}
+                  <div className="space-y-3 pt-3 border-t border-white/[0.07]">
+                    <div className="flex items-baseline justify-between px-1">
+                      <div>
+                        <span className="text-[10px] text-slate-400 block">Preço de Venda</span>
+                        <span className="text-2xl font-black text-white">
+                          R$ {product.sellingPrice.toFixed(2)}
+                        </span>
+                      </div>
+                      <div className="text-right font-mono">
+                        <span className="text-[10px] text-slate-400 block">
+                          Custo: R$ {product.costPrice.toFixed(2)}
+                        </span>
+                        <span className="text-xs font-bold text-emerald-400">
+                          +R$ {profit.toFixed(2)} lucro/{product.unit}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Dual Store Stock Pills */}
+                    <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                      <div
+                        className={`p-2 rounded-xl border text-center ${
+                          qBuritis <= product.minStock
+                            ? 'bg-amber-950/30 border-amber-500/40 text-amber-300'
+                            : 'bg-slate-950 border-slate-800 text-slate-200'
+                        }`}
+                      >
+                        <span className="text-[9px] uppercase text-slate-400 block">📍 Vila Buritis 24h</span>
+                        <strong className="text-xs font-black">
+                          {qBuritis} {product.unit}
+                        </strong>
+                      </div>
+                      <div
+                        className={`p-2 rounded-xl border text-center ${
+                          qTradicional === 0
+                            ? 'bg-rose-950/40 border-rose-500/50 text-rose-300'
+                            : qTradicional <= product.minStock
+                            ? 'bg-amber-950/30 border-amber-500/40 text-amber-300'
+                            : 'bg-slate-950 border-slate-800 text-slate-200'
+                        }`}
+                      >
+                        <span className="text-[9px] uppercase text-slate-400 block">📍 Setor Tradicional</span>
+                        <strong className="text-xs font-black">
+                          {qTradicional} {product.unit}
+                        </strong>
+                      </div>
+                    </div>
+
+                    {/* Interactive Live Buttons */}
+                    <div className="grid grid-cols-2 gap-2 pt-1">
+                      <button
+                        onClick={() => handleLandingQuickSale(product)}
+                        disabled={qTotal === 0}
+                        className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md transition disabled:opacity-40"
+                      >
+                        <ShoppingCart className="w-3.5 h-3.5" />
+                        <span>Vender 1 {product.unit}</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleLandingQuickTransfer(product)}
+                        disabled={qTotal === 0}
+                        className="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 hover:text-white border border-rose-500/35 font-bold text-xs flex items-center justify-center gap-1.5 transition disabled:opacity-40"
+                      >
+                        <ArrowRightLeft className="w-3.5 h-3.5" />
+                        <span>Transferir 5 {product.unit}</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

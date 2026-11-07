@@ -10,10 +10,10 @@ import {
   Store,
   Sparkles,
   Flame,
-  Clock,
-  ShieldCheck,
+  Package,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { ProductArtwork } from '../ProductArtwork';
 
 export const OverviewView: React.FC = () => {
   const { metrics, selectedUnitFilter, units, products, transfers, sales, movements, setActiveTab } =
@@ -68,6 +68,13 @@ export const OverviewView: React.FC = () => {
 
         <div className="flex flex-wrap items-center gap-2.5">
           <button
+            onClick={() => setActiveTab('products')}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-pink-950/90 to-rose-950/90 hover:from-rose-900 hover:to-pink-900 text-xs font-bold text-pink-200 border border-pink-500/40 transition shadow-md"
+          >
+            <Package className="w-4 h-4 text-pink-400" />
+            <span>Catálogo Fictício 3D ({metrics.totalProducts} SKUs)</span>
+          </button>
+          <button
             onClick={() => setActiveTab('transfers')}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white border border-slate-700 transition"
           >
@@ -76,7 +83,7 @@ export const OverviewView: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('sales')}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-xs font-bold text-white shadow-lg shadow-rose-950/40 transition"
+            className="btn-neon-luxe flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white transition"
           >
             <ShoppingCart className="w-4 h-4" />
             <span>PDV Balcão (Caixa Rápido)</span>
@@ -87,20 +94,23 @@ export const OverviewView: React.FC = () => {
       {/* 4 HIGH-IMPACT ENTERPRISE METRIC CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: SKUs e Volume */}
-        <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 relative overflow-hidden shadow-lg">
+        <div
+          onClick={() => setActiveTab('products')}
+          className="p-5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-pink-500/50 cursor-pointer space-y-3 relative overflow-hidden shadow-lg group transition"
+        >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              Catálogo & Itens Ativos
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider group-hover:text-pink-300 transition">
+              Catálogo Fictício 3D
             </span>
-            <div className="p-2 rounded-xl bg-slate-800 text-slate-300">
-              <Boxes className="w-4 h-4 text-rose-400" />
+            <div className="p-2 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/20">
+              <Package className="w-4 h-4" />
             </div>
           </div>
           <div>
             <div className="text-3xl font-black text-white">{metrics.totalProducts} SKUs</div>
-            <div className="flex items-center gap-1.5 text-xs text-slate-400 mt-1">
-              <span className="text-rose-400 font-bold">{metrics.totalStockUnits} un</span>
-              <span>em estoque físico geral</span>
+            <div className="flex items-center justify-between text-xs text-slate-400 mt-1">
+              <span><strong className="text-rose-400">{metrics.totalStockUnits} un</strong> no estoque</span>
+              <span className="text-pink-400 font-bold group-hover:underline">Abrir Showroom →</span>
             </div>
           </div>
         </div>
@@ -170,6 +180,53 @@ export const OverviewView: React.FC = () => {
               <span className="text-rose-400 font-bold group-hover:underline">Ver remessas →</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* 3D SHOWROOM STRIP INSIDE DASHBOARD OVERVIEW */}
+      <div className="p-6 rounded-3xl glass-panel-ultra space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-rose-400 font-bold flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-rose-500" />
+              Showroom & Catálogo Fictício 3D (Destaques da Rede)
+            </span>
+            <h3 className="text-lg font-black text-white mt-0.5">
+              Produtos Campeões de Giro • Vila Buritis & Setor Tradicional
+            </h3>
+          </div>
+          <button
+            onClick={() => setActiveTab('products')}
+            className="btn-neon-luxe px-5 py-2.5 rounded-xl text-white text-xs font-black flex items-center gap-2"
+          >
+            <Package className="w-4 h-4" />
+            <span>Ver Todos os {products.length} Produtos em 3D →</span>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {products.slice(0, 4).map((prod) => (
+            <div
+              key={prod.id}
+              onClick={() => setActiveTab('products')}
+              className="group glass-card-cockpit rounded-2xl p-3.5 cursor-pointer flex flex-col justify-between space-y-3"
+            >
+              <ProductArtwork product={prod} height="h-36" />
+              <div className="space-y-1">
+                <div className="flex items-center justify-between text-[10px] font-mono">
+                  <span className="text-rose-400 font-bold">{prod.brand || prod.category}</span>
+                  <span className="text-emerald-400 font-black">R$ {prod.sellingPrice.toFixed(2)}</span>
+                </div>
+                <div className="text-xs font-black text-white group-hover:text-rose-300 transition line-clamp-1">
+                  {prod.name}
+                </div>
+                <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono pt-1 border-t border-slate-800/80">
+                  <span>📍 Buritis: {prod.stock['unit-01'] || 0} {prod.unit}</span>
+                  <span>📍 Trad.: {prod.stock['unit-02'] || 0} {prod.unit}</span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

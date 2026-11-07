@@ -23,6 +23,7 @@ export const DashboardSidebar: React.FC = () => {
     setActiveTab,
     alerts,
     transfers,
+    products,
     setBrandModalOpen,
     selectedUnitFilter,
     units,
@@ -34,9 +35,15 @@ export const DashboardSidebar: React.FC = () => {
 
   const menuItems = [
     { id: 'overview', label: 'Visão Geral', icon: LayoutDashboard },
+    {
+      id: 'products',
+      label: 'Catálogo Fictício 3D',
+      icon: Package,
+      badge: `${products.length} SKUs`,
+      badgeColor: 'bg-pink-500/20 text-pink-300 border border-pink-500/40 font-bold',
+    },
     { id: 'units', label: 'Unidades', icon: Store, badge: '2 Lojas' },
     { id: 'inventory', label: 'Estoque & Insumos', icon: Boxes },
-    { id: 'products', label: 'Catálogo de Produtos', icon: Package },
     {
       id: 'transfers',
       label: 'Transferências entre Lojas',

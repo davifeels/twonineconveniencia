@@ -102,12 +102,12 @@ interface AppContextType {
 }
 
 const STORAGE_KEYS = {
-  PRODUCTS: 'twonine_products_v1',
-  TRANSFERS: 'twonine_transfers_v1',
-  PURCHASES: 'twonine_purchases_v1',
-  SALES: 'twonine_sales_v1',
-  SUPPLIERS: 'twonine_suppliers_v1',
-  MOVEMENTS: 'twonine_movements_v1',
+  PRODUCTS: 'twonine_products_v3',
+  TRANSFERS: 'twonine_transfers_v3',
+  PURCHASES: 'twonine_purchases_v3',
+  SALES: 'twonine_sales_v3',
+  SUPPLIERS: 'twonine_suppliers_v3',
+  MOVEMENTS: 'twonine_movements_v3',
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);

@@ -4,6 +4,7 @@ import { DashboardSidebar } from './DashboardSidebar';
 import { OverviewView } from './views/OverviewView';
 import { UnitsView } from './views/UnitsView';
 import { InventoryView } from './views/InventoryView';
+import { CatalogView } from './views/CatalogView';
 import { TransfersView } from './views/TransfersView';
 import { SalesView } from './views/SalesView';
 import { PurchasesView } from './views/PurchasesView';
@@ -27,8 +28,9 @@ export const DashboardLayout: React.FC = () => {
       case 'units':
         return <UnitsView />;
       case 'inventory':
-      case 'products':
         return <InventoryView />;
+      case 'products':
+        return <CatalogView />;
       case 'transfers':
         return <TransfersView />;
       case 'sales':

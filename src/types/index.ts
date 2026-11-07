@@ -26,11 +26,37 @@ export type ProductCategory =
 
 export type StockStatus = 'normal' | 'low' | 'out_of_stock';
 
+export type ProductArtworkType =
+  | 'essence'
+  | 'charcoal'
+  | 'foil'
+  | 'pod'
+  | 'hookah'
+  | 'rosh'
+  | 'ice'
+  | 'cup'
+  | 'energydrink'
+  | 'bottle'
+  | 'lighter'
+  | 'rollingpaper'
+  | 'snack';
+
+export interface ProductVisualTheme {
+  primary: string;   // Hex color for main packaging
+  secondary: string; // Hex color for gradient/glow
+  accent: string;    // Hex color for label/highlights
+  artworkType: ProductArtworkType;
+}
+
 export interface Product {
   id: string;
   sku: string;
   barcode: string;
   name: string;
+  brand?: string;
+  flavorOrSpec?: string;
+  badge?: string;
+  visualTheme?: ProductVisualTheme;
   category: ProductCategory;
   unit: string; // un, cx, pct, saco, lata, garrafa
   costPrice: number; // R$ custo

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   LayoutDashboard,
-  Globe,
   Palette,
   RotateCcw,
   Store,
@@ -10,6 +9,7 @@ import {
   ArrowRightLeft,
   Flame,
   ArrowRight,
+  Package,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { BrandLogo } from './BrandLogo';
@@ -19,11 +19,12 @@ export const Navbar: React.FC = () => {
   const {
     currentView,
     setCurrentView,
+    activeTab,
     selectedUnitFilter,
     setSelectedUnitFilter,
-    units,
     alerts,
     transfers,
+    products,
     setBrandModalOpen,
     resetToMockData,
     setActiveTab,
@@ -34,11 +35,11 @@ export const Navbar: React.FC = () => {
   ).length;
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#05070F]/90 backdrop-blur-md border-b border-rose-950/40 shadow-xl">
+    <header className="sticky top-0 z-40 w-full bg-[#04060D]/90 backdrop-blur-xl border-b border-rose-500/20 shadow-[0_10px_40px_rgba(0,0,0,0.85)]">
       {/* 94% WIDESCREEN CONTAINER */}
       <div className="w-[94%] max-w-[1840px] mx-auto h-18 flex items-center justify-between gap-4 py-2">
         {/* Brand Logo */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-5">
           <div
             onClick={() => setCurrentView('landing')}
             className="cursor-pointer transition-transform hover:scale-[1.02]"
@@ -47,29 +48,51 @@ export const Navbar: React.FC = () => {
             <BrandLogo size="md" variant="full" subtitle="manager" />
           </div>
 
-          {/* DUAL MODE TOGGLER */}
-          <div className="hidden md:flex items-center p-1 rounded-2xl bg-slate-950 border border-rose-500/25 text-xs font-semibold">
+          {/* TRIPLE MODE TOGGLER: LANDING | CATÁLOGO FICTÍCIO 3D | PAINEL ERP */}
+          <div className="hidden md:flex items-center p-1 rounded-2xl bg-slate-950/95 border border-rose-500/30 text-xs font-bold shadow-inner">
             <button
               onClick={() => setCurrentView('landing')}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl transition ${
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl transition-all ${
                 currentView === 'landing'
                   ? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-md shadow-rose-950/50'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              <Flame className="w-3.5 h-3.5 text-pink-400" />
-              <span>Vitrine Comercial Tabacaria</span>
+              <Flame className="w-3.5 h-3.5 text-pink-300" />
+              <span>Apresentação & Vitrine</span>
             </button>
+
             <button
-              onClick={() => setCurrentView('dashboard')}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl transition ${
-                currentView === 'dashboard'
+              onClick={() => {
+                setCurrentView('dashboard');
+                setActiveTab('products');
+              }}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl transition-all ${
+                currentView === 'dashboard' && activeTab === 'products'
+                  ? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-md shadow-rose-950/50'
+                  : 'text-pink-300 hover:text-white'
+              }`}
+            >
+              <Package className="w-3.5 h-3.5 text-rose-400" />
+              <span>Catálogo Fictício 3D</span>
+              <span className="px-1.5 py-0.2 rounded-full bg-rose-500/25 border border-rose-500/40 text-[10px] font-mono text-rose-200">
+                {products.length}
+              </span>
+            </button>
+
+            <button
+              onClick={() => {
+                setCurrentView('dashboard');
+                if (activeTab === 'products') setActiveTab('overview');
+              }}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl transition-all ${
+                currentView === 'dashboard' && activeTab !== 'products'
                   ? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-md shadow-rose-950/50'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               <LayoutDashboard className="w-3.5 h-3.5" />
-              <span>Painel ERP Multiunidade (18+)</span>
+              <span>Painel ERP Multiunidade</span>
             </button>
           </div>
         </div>
