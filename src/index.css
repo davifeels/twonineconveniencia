@@ -2,34 +2,57 @@
 
 @layer base {
   body {
-    background-color: #05070f;
+    background-color: #04060B;
     color: #f1f5f9;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
   }
+}
+
+/* Futuristic Grid Pattern Background */
+.bg-grid-cyber {
+  background-image: 
+    linear-gradient(to right, rgba(244, 63, 94, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(244, 63, 94, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.bg-radial-luxe {
+  background: radial-gradient(circle at 50% 0%, rgba(225, 29, 72, 0.22) 0%, rgba(244, 63, 94, 0.08) 35%, transparent 70%);
+}
+
+/* Ambient Spotlights */
+.spotlight-rose {
+  background: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.18) 0%, transparent 70%);
 }
 
 /* Neon glow animations */
 @keyframes pulseGlow {
   0%, 100% {
-    opacity: 0.35;
+    opacity: 0.45;
     transform: scale(1);
   }
   50% {
-    opacity: 0.65;
-    transform: scale(1.08);
+    opacity: 0.85;
+    transform: scale(1.04);
   }
 }
 
-@keyframes smokeFloat {
+@keyframes shimmer {
   0% {
-    transform: translateY(0px) scale(1);
-  }
-  50% {
-    transform: translateY(-12px) scale(1.04);
+    background-position: -200% 0;
   }
   100% {
-    transform: translateY(0px) scale(1);
+    background-position: 200% 0;
+  }
+}
+
+@keyframes floatSoft {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }
 
@@ -37,25 +60,65 @@
   animation: pulseGlow 5s ease-in-out infinite;
 }
 
-.animate-smoke-float {
-  animation: smokeFloat 6s ease-in-out infinite;
+.animate-float-soft {
+  animation: floatSoft 4s ease-in-out infinite;
 }
 
-/* Glassmorphism Luxe */
-.glass-panel {
-  background: rgba(13, 17, 28, 0.75);
+.shimmer-text {
+  background: linear-gradient(90deg, #FFFFFF 0%, #FDA4AF 25%, #FFFFFF 50%, #FDA4AF 75%, #FFFFFF 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 6s linear infinite;
+}
+
+/* Glassmorphism Ultra-Luxe */
+.glass-panel-ultra {
+  background: rgba(8, 12, 22, 0.78);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(244, 63, 94, 0.22);
+  box-shadow: 
+    0 25px 60px -15px rgba(0, 0, 0, 0.8),
+    0 0 30px -10px rgba(225, 29, 72, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-card-cockpit {
+  background: rgba(12, 17, 31, 0.7);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(244, 63, 94, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-cockpit:hover {
+  border-color: rgba(244, 63, 94, 0.4);
+  background: rgba(16, 23, 42, 0.85);
+  box-shadow: 0 12px 30px -10px rgba(225, 29, 72, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
 }
 
 .glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .glass-panel-hover:hover {
   border-color: rgba(244, 63, 94, 0.45);
-  box-shadow: 0 10px 30px -10px rgba(225, 29, 72, 0.25);
-  transform: translateY(-2px);
+  box-shadow: 0 25px 60px -12px rgba(225, 29, 72, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Neon Glow Button */
+.btn-neon-luxe {
+  background: linear-gradient(135deg, #FF2A5F 0%, #E11D48 50%, #BE123C 100%);
+  box-shadow: 0 0 28px rgba(244, 63, 94, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-neon-luxe:hover {
+  box-shadow: 0 0 50px rgba(244, 63, 94, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px) scale(1.02);
 }
 
 /* Custom scrollbars */
@@ -64,13 +127,13 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #080a12;
+  background: #04060B;
 }
 ::-webkit-scrollbar-thumb {
-  background: #25162a;
+  background: #1E1220;
   border-radius: 9999px;
-  border: 1px solid rgba(244, 63, 94, 0.2);
+  border: 1px solid rgba(244, 63, 94, 0.25);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #e11d48;
+  background: #E11D48;
 }
