@@ -152,10 +152,10 @@ export const BrandIdentityModal: React.FC<BrandIdentityModalProps> = ({ isOpen, 
                         <strong className="text-slate-200">Símbolo:</strong> Silhueta circular de narguile com duas mangueiras em diagonal e fumaça vermelha sobre fundo preto.
                       </p>
                       <p>
-                        <strong className="text-slate-200">Tipografia:</strong> Ausente no avatar oficial, dependendo de texto complementar externo.
+                        <strong className="text-slate-200">Tipografia:</strong> Ausente no avatar oficial, dependendo de texto complementar externo para identificação do nome.
                       </p>
                       <p>
-                        <strong className="text-slate-200">Limitações observadas:</strong> Foco exclusivo em narguile/tabacaria, o que restringe o posicionamento comercial para uma ampla rede de conveniência/empório e gera entraves com políticas de compliance e publicidade digital.
+                        <strong className="text-slate-200">Herança da Marca:</strong> Forte ligação com o público de lounge e tabacaria desde 2017 em Planaltina-DF, que deve ser preservada e refinada com alto padrão visual.
                       </p>
                     </div>
                   </div>
@@ -181,13 +181,13 @@ export const BrandIdentityModal: React.FC<BrandIdentityModalProps> = ({ isOpen, 
 
                     <div className="space-y-2 text-xs text-slate-300">
                       <p>
-                        <strong className="text-white">Conceito do Monograma:</strong> Integração fluida dos numerais <strong>"2"</strong> e <strong>"9"</strong> em um escudo tecnológico, simbolizando as <strong>2 unidades operando em sinergia</strong> contínua.
+                        <strong className="text-white">Conceito do Monograma:</strong> Integração dos numerais <strong>"2"</strong> e <strong>"9"</strong> em um escudo de alta tecnologia, mantendo a <strong>chama / ápice do narguile</strong> estilizado no topo do 9 e conectando as <strong>2 unidades em sinergia</strong>.
                       </p>
                       <p>
-                        <strong className="text-white">Evolução da Paleta:</strong> Preservação do preto e vermelho originais da TwoNine, elevados para Obsidian Black e Crimson Energy com contraste perfeito para SaaS.
+                        <strong className="text-white">Evolução da Paleta:</strong> Vermelho Crimson e Obsidian Black originais preservados com acabamento premium para telas OLED e sinalização de loja.
                       </p>
                       <p>
-                        <strong className="text-white">Posicionamento Ampliado:</strong> Comunica conveniência ágil, empório moderno, bebidas geladas, snacks e tecnologia de ponta para gestão de lojas.
+                        <strong className="text-white">Posicionamento Refinado:</strong> Tabacaria, Hookah Lounge & Conveniência de alto padrão (🔞 18+) com controle de estoque de nível corporativo.
                       </p>
                     </div>
                   </div>

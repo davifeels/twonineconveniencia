@@ -49,22 +49,23 @@ export const InventoryView: React.FC = () => {
     name: '',
     sku: '',
     barcode: '',
-    category: 'Bebidas Não Alcoólicas' as ProductCategory,
+    category: 'Tabacaria & Hookah' as ProductCategory,
     unit: 'un',
-    costPrice: 5.0,
-    sellingPrice: 10.0,
+    costPrice: 8.5,
+    sellingPrice: 15.0,
     minStock: 15,
-    stockBuritis: 20,
-    stockTradicional: 15,
+    stockBuritis: 30,
+    stockTradicional: 20,
     description: '',
   });
 
   const categories: ProductCategory[] = [
-    'Bebidas Não Alcoólicas',
-    'Snacks & Salgadinhos',
-    'Chocolates & Doces',
-    'Mercearia & Bomboniere',
-    'Higiene & Conveniência',
+    'Tabacaria & Hookah',
+    'Carvões & Insumos',
+    'Bebidas & Energéticos',
+    'Gelo & Copos',
+    'Snacks & Bomboniere',
+    'Acessórios & Headshop',
   ];
 
   // Filtered Products
@@ -128,7 +129,7 @@ export const InventoryView: React.FC = () => {
       name: '',
       sku: `SKU-${Math.floor(1000 + Math.random() * 9000)}`,
       barcode: `789${Math.floor(1000000000 + Math.random() * 9000000000)}`,
-      category: 'Bebidas Não Alcoólicas',
+      category: 'Tabacaria & Hookah',
       unit: 'un',
       costPrice: 5.5,
       sellingPrice: 11.0,

@@ -4,19 +4,19 @@ import {
   Store,
   Boxes,
   ArrowRightLeft,
-  TrendingUp,
   ShieldCheck,
   CheckCircle2,
   BarChart3,
-  Layers,
   Sparkles,
   Truck,
   ShoppingCart,
   Users,
   AlertTriangle,
   History,
-  Building2,
   ChevronRight,
+  Flame,
+  MapPin,
+  Clock,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { BrandLogo } from './BrandLogo';
@@ -32,24 +32,32 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0B0F19] text-slate-100 flex flex-col selection:bg-rose-500 selection:text-white">
-      {/* HERO SECTION */}
-      <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-32 border-b border-slate-800/60">
+      {/* HERO SECTION - 94% SCREEN WIDTH */}
+      <section className="relative overflow-hidden pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-slate-800/60">
         {/* Glow ambient background elements */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-rose-600/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute top-1/3 right-10 w-[350px] h-[350px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-rose-600/12 rounded-full blur-[160px] pointer-events-none" />
+        <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-4xl mx-auto space-y-6">
-            {/* Tag badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
-              <span>Solução Conceitual SaaS • TwoNine Conveniência</span>
-              <span className="text-slate-600">|</span>
-              <span className="text-rose-400 font-semibold">Planaltina - DF</span>
+        <div className="w-[94%] max-w-[1800px] mx-auto relative z-10 space-y-10">
+          <div className="text-center max-w-5xl mx-auto space-y-6">
+            {/* Real Instagram Bio Badges */}
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 font-bold text-xs">
+                <span>🔞</span>
+                <span>Para Maiores de 18 Anos</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-xs font-semibold">
+                <Flame className="w-3.5 h-3.5 text-rose-500" />
+                <span>Somos a TwoNine! Desde 2017</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-medium">
+                <MapPin className="w-3.5 h-3.5 text-rose-500" />
+                <span>Vila Buritis (na rua da Escola Paraná) & Setor Tradicional</span>
+              </span>
             </div>
 
             {/* EXACT REQUIRED TITLE */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.12]">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.08]">
               Suas duas unidades.{' '}
               <span className="bg-gradient-to-r from-rose-500 via-rose-400 to-amber-400 bg-clip-text text-transparent">
                 Uma gestão muito mais inteligente.
@@ -57,62 +65,52 @@ export const LandingPage: React.FC = () => {
             </h1>
 
             {/* EXACT REQUIRED SUBTITLE */}
-            <p className="text-base sm:text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
+            <p className="text-base sm:text-xl lg:text-2xl text-slate-300 max-w-4xl mx-auto font-normal leading-relaxed">
               Centralize o controle de estoque, acompanhe as operações e tenha uma visão completa das suas unidades em um único sistema.
             </p>
 
+            <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto">
+              Projetado sob medida para a operação real de <strong className="text-white">Tabacaria, Hookah Lounge & Conveniência</strong>: essências premium, carvões de coco, sedas, gelos saborizados, energéticos e mercearia noturna.
+            </p>
+
             {/* EXACT REQUIRED BUTTONS */}
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               <button
                 onClick={() => setCurrentView('dashboard')}
-                className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm transition-all duration-200 shadow-lg shadow-rose-900/30 hover:shadow-rose-900/50 hover:translate-y-[-1px]"
+                className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-black text-sm sm:text-base transition-all duration-200 shadow-xl shadow-rose-900/40 hover:scale-105"
               >
                 <span>Explorar demonstração</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-5 h-5" />
               </button>
 
               <button
                 onClick={() => scrollToSection('gestao-centralizada')}
-                className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 font-semibold text-sm transition"
+                className="flex items-center gap-2 px-7 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 font-bold text-sm sm:text-base transition"
               >
                 <span>Conhecer a plataforma</span>
               </button>
             </div>
-
-            {/* Quick highlight bar */}
-            <div className="pt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                Vila Buritis & Setor Tradicional integrados
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                Transferência de estoque com saldo validado
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                Alertas automáticos de reposição
-              </span>
-            </div>
           </div>
 
-          {/* Interactive Live Preview Mockup Card */}
-          <div className="mt-14 max-w-5xl mx-auto rounded-2xl bg-slate-900/90 border border-slate-800 shadow-2xl overflow-hidden backdrop-blur-xl">
+          {/* Enterprise Widescreen Live Mockup (Spans 94% Width) */}
+          <div className="w-full rounded-2xl bg-slate-900/95 border border-slate-800 shadow-2xl overflow-hidden backdrop-blur-xl">
             {/* Window bar */}
-            <div className="px-5 py-3.5 border-b border-slate-800 bg-slate-950/80 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-slate-800 bg-slate-950/80 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-rose-500/80"></div>
-                <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
-                <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-rose-500"></div>
+                <div className="w-3 h-3 rounded-full bg-amber-500"></div>
+                <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
                 <span className="ml-3 text-xs font-mono text-slate-400 flex items-center gap-2">
-                  <span className="text-slate-500">twonine-manager.local</span>
-                  <span className="bg-slate-800 text-slate-300 text-[10px] px-1.5 py-0.5 rounded">Ambiente Ativo</span>
+                  <span className="text-slate-500 font-bold">twonine.manager.enterprise</span>
+                  <span className="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded font-mono">
+                    Tabacaria & Conveniência Multi-Store
+                  </span>
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setActivePreviewTab('kpis')}
-                  className={`px-3 py-1 text-xs rounded-md transition ${
+                  className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition ${
                     activePreviewTab === 'kpis'
                       ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
                       : 'text-slate-400 hover:text-white'
@@ -122,7 +120,7 @@ export const LandingPage: React.FC = () => {
                 </button>
                 <button
                   onClick={() => setActivePreviewTab('transfers')}
-                  className={`px-3 py-1 text-xs rounded-md transition ${
+                  className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition ${
                     activePreviewTab === 'transfers'
                       ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
                       : 'text-slate-400 hover:text-white'
@@ -132,58 +130,76 @@ export const LandingPage: React.FC = () => {
                 </button>
                 <button
                   onClick={() => setActivePreviewTab('stores')}
-                  className={`px-3 py-1 text-xs rounded-md transition ${
+                  className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition ${
                     activePreviewTab === 'stores'
                       ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  Lojas & Unidades
+                  Unidades Físicas
                 </button>
               </div>
             </div>
 
             {/* Window Content */}
-            <div className="p-6 bg-slate-950/50">
+            <div className="p-6 lg:p-8 bg-slate-950/60">
               {activePreviewTab === 'kpis' && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                      <span className="text-[11px] font-medium text-slate-400 block mb-1">Itens em Catálogo</span>
-                      <div className="text-2xl font-black text-white">{metrics.totalProducts} produtos</div>
-                      <span className="text-[10px] text-emerald-400 font-medium">Bebidas, snacks & doces</span>
+                    <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span className="text-xs font-medium text-slate-400 block mb-1">
+                        Catálogo Tabacaria & Bebidas
+                      </span>
+                      <div className="text-3xl font-black text-white">{metrics.totalProducts} SKUs</div>
+                      <span className="text-xs text-rose-400 font-semibold mt-1 inline-block">
+                        Essências, carvões, energéticos & gelo
+                      </span>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                      <span className="text-[11px] font-medium text-slate-400 block mb-1">Volume Consolidado</span>
-                      <div className="text-2xl font-black text-rose-400">{metrics.totalStockUnits} un</div>
-                      <span className="text-[10px] text-slate-400">Distribuídos nas 2 lojas</span>
+                    <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span className="text-xs font-medium text-slate-400 block mb-1">
+                        Estoque Físico Total
+                      </span>
+                      <div className="text-3xl font-black text-rose-400">{metrics.totalStockUnits} un</div>
+                      <span className="text-xs text-slate-400 mt-1 inline-block">
+                        Integrados nas 2 unidades do DF
+                      </span>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                      <span className="text-[11px] font-medium text-slate-400 block mb-1">Patrimônio em Estoque</span>
-                      <div className="text-2xl font-black text-emerald-400">
+                    <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span className="text-xs font-medium text-slate-400 block mb-1">
+                        Capital em Estoque
+                      </span>
+                      <div className="text-3xl font-black text-emerald-400">
                         R$ {metrics.totalStockCostValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                       </div>
-                      <span className="text-[10px] text-slate-400">Preço de custo estimado</span>
+                      <span className="text-xs text-slate-400 mt-1 inline-block">
+                        Preço de custo dos lotes
+                      </span>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                      <span className="text-[11px] font-medium text-slate-400 block mb-1">Reposição Crítica</span>
-                      <div className="text-2xl font-black text-amber-400">{metrics.lowStockCount} alertas</div>
-                      <span className="text-[10px] text-amber-500/90 font-medium">Abaixo do estoque mínimo</span>
+                    <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span className="text-xs font-medium text-slate-400 block mb-1">
+                        Alertas de Ruptura
+                      </span>
+                      <div className="text-3xl font-black text-amber-400">{metrics.lowStockCount} alertas</div>
+                      <span className="text-xs text-amber-500/90 font-medium mt-1 inline-block">
+                        Reposição preventiva de final de semana
+                      </span>
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
-                        <ArrowRightLeft className="w-5 h-5" />
+                      <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 shrink-0">
+                        <ArrowRightLeft className="w-6 h-6" />
                       </div>
                       <div>
-                        <div className="text-sm font-bold text-white">Integração Vila Buritis ↔ Setor Tradicional</div>
+                        <div className="text-sm font-bold text-white">
+                          Conexão Direta: Vila Buritis (Escola Paraná) ↔ Setor Tradicional
+                        </div>
                         <div className="text-xs text-slate-400">
-                          Movimente cargas entre as lojas em poucos cliques sem perder a rastreabilidade fiscal e física.
+                          Equilíbrio de cargas de essências, caixas de carvão e sacos de gelo em poucos segundos.
                         </div>
                       </div>
                     </div>
@@ -192,9 +208,9 @@ export const LandingPage: React.FC = () => {
                         setCurrentView('dashboard');
                         setActiveTab('transfers');
                       }}
-                      className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white border border-slate-700 transition shrink-0"
+                      className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white border border-slate-700 transition shrink-0"
                     >
-                      Testar Transferência no Dashboard →
+                      Abrir Tela de Transferências →
                     </button>
                   </div>
                 </div>
@@ -205,30 +221,19 @@ export const LandingPage: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                     <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
                       <span className="text-slate-400 font-mono text-[10px] uppercase">Origem</span>
-                      <div className="font-bold text-white text-sm">Unidade 01 — Vila Buritis</div>
-                      <div className="text-emerald-400 font-medium">Saldo: 48 latas (Red Bull 250ml)</div>
+                      <div className="font-bold text-white text-sm">Unidade 01 — Vila Buritis (24h)</div>
+                      <div className="text-emerald-400 font-medium">Saldo: 48 caixas (Carvão Art Coco 1kg)</div>
                     </div>
                     <div className="p-4 rounded-xl bg-slate-900 border border-rose-500/30 flex flex-col items-center justify-center text-center space-y-1">
                       <ArrowRightLeft className="w-6 h-6 text-rose-400" />
-                      <div className="font-bold text-white">Transferência de 12 unidades</div>
+                      <div className="font-bold text-white">Transferência de 12 caixas</div>
                       <div className="text-slate-400 text-[11px]">TRF-2026-001 • Concluída</div>
                     </div>
                     <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
                       <span className="text-slate-400 font-mono text-[10px] uppercase">Destino</span>
                       <div className="font-bold text-white text-sm">Unidade 02 — Setor Tradicional</div>
-                      <div className="text-amber-400 font-medium">Estoque Reabastecido: 12 latas</div>
+                      <div className="text-amber-400 font-medium">Estoque Abastecido: +12 caixas</div>
                     </div>
-                  </div>
-                  <div className="text-center pt-2">
-                    <button
-                      onClick={() => {
-                        setCurrentView('dashboard');
-                        setActiveTab('transfers');
-                      }}
-                      className="text-xs text-rose-400 font-semibold hover:underline"
-                    >
-                      Abrir tela de transferências no Dashboard administrativo →
-                    </button>
                   </div>
                 </div>
               )}
@@ -236,9 +241,9 @@ export const LandingPage: React.FC = () => {
               {activePreviewTab === 'stores' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {units.map((u) => (
-                    <div key={u.id} className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+                    <div key={u.id} className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-white flex items-center gap-2">
+                        <span className="text-sm font-bold text-white flex items-center gap-2">
                           <Store className="w-4 h-4 text-rose-500" />
                           {u.name}
                         </span>
@@ -246,10 +251,13 @@ export const LandingPage: React.FC = () => {
                           {u.tag}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-400">{u.address}, {u.city}</p>
+                      <p className="text-xs text-slate-300">{u.address}</p>
+                      <span className="text-[11px] text-rose-400 font-medium block">
+                        📍 {u.reference}
+                      </span>
                       <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
-                        <span className="text-slate-400">Horário: <strong className="text-slate-200">{u.operatingHours}</strong></span>
-                        <span className="text-slate-400">Gerência: <strong className="text-slate-200">{u.manager.split(' ')[0]}</strong></span>
+                        <span className="text-slate-400">Horário: <strong className="text-white">{u.operatingHours}</strong></span>
+                        <span className="text-slate-400">Gerência: <strong className="text-white">{u.manager.split(' ')[0]}</strong></span>
                       </div>
                     </div>
                   ))}
@@ -262,15 +270,16 @@ export const LandingPage: React.FC = () => {
 
       {/* SEÇÃO: GESTÃO CENTRALIZADA */}
       <section id="gestao-centralizada" className="py-20 border-b border-slate-800/60 bg-slate-950/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="max-w-3xl mx-auto text-center space-y-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-rose-500 font-mono">
-              Controle Unificado
+        <div className="w-[94%] max-w-[1800px] mx-auto space-y-12">
+          <div className="max-w-4xl mx-auto text-center space-y-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-rose-500 font-mono flex items-center justify-center gap-1.5">
+              <Flame className="w-4 h-4 text-rose-500" />
+              Controle Unificado Tabacaria & Conveniência
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
               Gestão Centralizada para Duas Unidades
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Administrar duas lojas não precisa significar duplicar planilhas, desencontros de saldo ou telefonemas constantes para saber se determinado produto está disponível. O TwoNine Manager unifica a visão do proprietário em um único painel.
             </p>
           </div>
@@ -311,7 +320,7 @@ export const LandingPage: React.FC = () => {
 
       {/* SEÇÃO: CONTROLE DE ESTOQUE */}
       <section className="py-20 border-b border-slate-800/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div className="w-[94%] max-w-[1800px] mx-auto space-y-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <span className="text-xs font-bold uppercase tracking-wider text-rose-500 font-mono">
@@ -321,11 +330,11 @@ export const LandingPage: React.FC = () => {
                 Controle de Estoque Preciso por Loja
               </h2>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Elimine rupturas de gôndola e compras desnecessárias. O sistema mantém o saldo individual de cada unidade com cálculo automático de estoque mínimo.
+                Elimine rupturas de balcão e compras desnecessárias. O sistema mantém o saldo individual de cada unidade com cálculo automático de estoque mínimo.
               </p>
 
               <div className="space-y-3 text-xs text-slate-300">
-                <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div className="flex items-start gap-3 p-4 rounded-2xl bg-slate-900 border border-slate-800">
                   <Boxes className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-white block text-sm">Estoque por Unidade</strong>
@@ -333,7 +342,7 @@ export const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div className="flex items-start gap-3 p-4 rounded-2xl bg-slate-900 border border-slate-800">
                   <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-white block text-sm">Produtos com Baixo Estoque</strong>
@@ -341,7 +350,7 @@ export const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div className="flex items-start gap-3 p-4 rounded-2xl bg-slate-900 border border-slate-800">
                   <History className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-white block text-sm">Histórico e Rastreabilidade</strong>
@@ -356,7 +365,7 @@ export const LandingPage: React.FC = () => {
                     setCurrentView('dashboard');
                     setActiveTab('inventory');
                   }}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 transition"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 transition"
                 >
                   <span>Ver tabela de estoque no sistema</span>
                   <ArrowRight className="w-4 h-4 text-rose-400" />
@@ -365,10 +374,11 @@ export const LandingPage: React.FC = () => {
             </div>
 
             {/* Visual Inventory Graphic Card */}
-            <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-4">
+            <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
               <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <div className="text-xs font-bold text-white uppercase tracking-wider">
-                  Amostra de Saldo em Tempo Real
+                <div className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                  <Flame className="w-4 h-4 text-rose-500" />
+                  Amostra de Estoque Tabacaria & Bebidas
                 </div>
                 <span className="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
                   Sincronizado
@@ -377,13 +387,13 @@ export const LandingPage: React.FC = () => {
 
               <div className="space-y-3 text-xs">
                 {/* Item 1 */}
-                <div className="p-3 rounded-lg bg-slate-950 border border-slate-800/80 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
                   <div>
-                    <div className="font-bold text-white">Energético Red Bull 250ml</div>
-                    <div className="text-[11px] text-slate-400 font-mono">BEB-EN-001 • Bebidas</div>
+                    <div className="font-bold text-white">Carvão de Coco Hexagonal 1kg (60 peças)</div>
+                    <div className="text-[11px] text-slate-400 font-mono">CRV-COC-005 • Carvões & Insumos</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs font-bold text-white">48 un (Buritis) | 12 un (Trad.)</div>
+                    <div className="text-xs font-bold text-white">48 cx (Buritis) | 16 cx (Trad.)</div>
                     <span className="inline-block px-1.5 py-0.2 rounded text-[10px] font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/30">
                       Estoque Baixo na Tradicional
                     </span>
@@ -391,37 +401,37 @@ export const LandingPage: React.FC = () => {
                 </div>
 
                 {/* Item 2 */}
-                <div className="p-3 rounded-lg bg-slate-950 border border-slate-800/80 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
                   <div>
-                    <div className="font-bold text-white">Gelo Filtrado em Cubos 5kg</div>
-                    <div className="text-[11px] text-slate-400 font-mono">CON-GEL-016 • Conveniência</div>
+                    <div className="font-bold text-white">Essência Nay Fresh Peach 50g</div>
+                    <div className="text-[11px] text-slate-400 font-mono">TAB-ESS-001 • Tabacaria & Hookah</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs font-bold text-white">45 un (Buritis) | 38 un (Trad.)</div>
-                    <span className="inline-block px-1.5 py-0.2 rounded text-[10px] font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-                      Normal
+                    <div className="text-xs font-bold text-white">54 un (Buritis) | 8 un (Trad.)</div>
+                    <span className="inline-block px-1.5 py-0.2 rounded text-[10px] font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                      Estoque Baixo na Tradicional
                     </span>
                   </div>
                 </div>
 
                 {/* Item 3 */}
-                <div className="p-3 rounded-lg bg-slate-950 border border-slate-800/80 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
                   <div>
-                    <div className="font-bold text-white">Chocolate Milka Alpine 100g</div>
-                    <div className="text-[11px] text-slate-400 font-mono">DOC-CHO-010 • Doces</div>
+                    <div className="font-bold text-white">Gelo Saborizado Coco c/ Maracujá 200ml</div>
+                    <div className="text-[11px] text-slate-400 font-mono">GEL-SAB-008 • Gelo & Copos</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs font-bold text-white">18 un (Buritis) | 0 un (Trad.)</div>
-                    <span className="inline-block px-1.5 py-0.2 rounded text-[10px] font-semibold bg-rose-500/15 text-rose-400 border border-rose-500/30">
-                      Sem Estoque na Tradicional
+                    <div className="text-xs font-bold text-white">110 un (Buritis) | 32 un (Trad.)</div>
+                    <span className="inline-block px-1.5 py-0.2 rounded text-[10px] font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                      Normal
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg bg-rose-950/20 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+              <div className="p-3.5 rounded-xl bg-rose-950/20 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-rose-400 shrink-0" />
-                <span>O sistema sugere automaticamente a transferência de 6 un de Milka de Buritis para Tradicional.</span>
+                <span>O sistema sugere a transferência preventiva de 15 un de essência da Vila Buritis para o Setor Tradicional.</span>
               </div>
             </div>
           </div>
@@ -430,8 +440,8 @@ export const LandingPage: React.FC = () => {
 
       {/* SEÇÃO: CONTROLE OPERACIONAL */}
       <section className="py-20 border-b border-slate-800/60 bg-slate-950/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="max-w-3xl mx-auto text-center space-y-4">
+        <div className="w-[94%] max-w-[1800px] mx-auto space-y-12">
+          <div className="max-w-4xl mx-auto text-center space-y-4">
             <span className="text-xs font-bold uppercase tracking-wider text-rose-500 font-mono">
               Fluxos de Negócio
             </span>
@@ -445,7 +455,7 @@ export const LandingPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
-              <div className="w-10 h-10 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center">
                 <Truck className="w-5 h-5" />
               </div>
               <h3 className="font-bold text-white text-base">Registro de Compras</h3>
@@ -455,17 +465,17 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
-              <div className="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
                 <Users className="w-5 h-5" />
               </div>
               <h3 className="font-bold text-white text-base">Gestão de Fornecedores</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Base centralizada de fornecedores de bebidas, salgadinhos, bomboniere e gelo, com prazos de entrega e telefones de contato.
+                Base centralizada de fornecedores de essências, carvões de coco, bebidas, energéticos e gelo com prazos de entrega e telefones.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
-              <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
                 <ShoppingCart className="w-5 h-5" />
               </div>
               <h3 className="font-bold text-white text-base">Vendas Demonstrativas</h3>
@@ -475,7 +485,7 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
-              <div className="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
                 <BarChart3 className="w-5 h-5" />
               </div>
               <h3 className="font-bold text-white text-base">Comparação de Resultados</h3>
@@ -489,8 +499,8 @@ export const LandingPage: React.FC = () => {
 
       {/* SEÇÃO: DASHBOARD */}
       <section className="py-20 border-b border-slate-800/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-          <div className="text-center max-w-3xl mx-auto space-y-4">
+        <div className="w-[94%] max-w-[1800px] mx-auto space-y-10">
+          <div className="text-center max-w-4xl mx-auto space-y-4">
             <span className="text-xs font-bold uppercase tracking-wider text-rose-500 font-mono">
               Interface SaaS Premium
             </span>
@@ -505,12 +515,15 @@ export const LandingPage: React.FC = () => {
           <div className="rounded-2xl bg-slate-900 border border-slate-800 p-6 md:p-8 space-y-6 shadow-2xl">
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
               <div>
-                <h4 className="font-bold text-white text-lg">Painel TWONINE MANAGER</h4>
+                <h4 className="font-bold text-white text-lg flex items-center gap-2">
+                  <Flame className="w-5 h-5 text-rose-500" />
+                  Painel TWONINE MANAGER • Tabacaria & Conveniência
+                </h4>
                 <p className="text-xs text-slate-400">Navegue pelas 11 áreas gerenciais do sistema</p>
               </div>
               <button
                 onClick={() => setCurrentView('dashboard')}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition"
               >
                 <span>Acessar Dashboard Completo</span>
                 <ChevronRight className="w-4 h-4" />
@@ -521,9 +534,9 @@ export const LandingPage: React.FC = () => {
               {[
                 { name: 'Visão Geral', tab: 'overview', icon: BarChart3 },
                 { name: 'Unidades', tab: 'units', icon: Store },
-                { name: 'Estoque', tab: 'inventory', icon: Boxes },
+                { name: 'Estoque & Insumos', tab: 'inventory', icon: Boxes },
                 { name: 'Transferências', tab: 'transfers', icon: ArrowRightLeft },
-                { name: 'Vendas (PDV)', tab: 'sales', icon: ShoppingCart },
+                { name: 'PDV Balcão', tab: 'sales', icon: ShoppingCart },
                 { name: 'Alertas', tab: 'alerts', icon: AlertTriangle },
               ].map((item) => (
                 <button
@@ -532,7 +545,7 @@ export const LandingPage: React.FC = () => {
                     setCurrentView('dashboard');
                     setActiveTab(item.tab);
                   }}
-                  className="p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-rose-500/50 hover:bg-slate-900 transition flex flex-col items-center gap-2 group"
+                  className="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-rose-500/50 hover:bg-slate-900 transition flex flex-col items-center gap-2 group"
                 >
                   <item.icon className="w-5 h-5 text-slate-400 group-hover:text-rose-400 transition" />
                   <span className="font-semibold text-slate-300 group-hover:text-white transition">
@@ -547,8 +560,8 @@ export const LandingPage: React.FC = () => {
 
       {/* SEÇÃO: BENEFÍCIOS */}
       <section className="py-20 border-b border-slate-800/60 bg-slate-950/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center max-w-3xl mx-auto space-y-4">
+        <div className="w-[94%] max-w-[1800px] mx-auto space-y-12">
+          <div className="text-center max-w-4xl mx-auto space-y-4">
             <span className="text-xs font-bold uppercase tracking-wider text-rose-500 font-mono">
               Vantagens Reais
             </span>
@@ -602,7 +615,7 @@ export const LandingPage: React.FC = () => {
       {/* CTA FINAL */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-rose-950/20 to-transparent pointer-events-none"></div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
+        <div className="w-[94%] max-w-[1800px] mx-auto text-center relative z-10 space-y-6">
           <div className="inline-flex p-3 rounded-2xl bg-slate-900 border border-slate-800 shadow-lg mb-2">
             <BrandLogo size="lg" variant="badge" />
           </div>

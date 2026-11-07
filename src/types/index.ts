@@ -6,6 +6,7 @@ export interface StoreUnit {
   shortName: string;
   tag: string;
   address: string;
+  reference: string;
   neighborhood: string;
   city: string;
   manager: string;
@@ -15,12 +16,13 @@ export interface StoreUnit {
   operatingHours: string;
 }
 
-export type ProductCategory = 
-  | 'Bebidas Não Alcoólicas'
-  | 'Snacks & Salgadinhos'
-  | 'Chocolates & Doces'
-  | 'Mercearia & Bomboniere'
-  | 'Higiene & Conveniência';
+export type ProductCategory =
+  | 'Tabacaria & Hookah'
+  | 'Carvões & Insumos'
+  | 'Bebidas & Energéticos'
+  | 'Gelo & Copos'
+  | 'Snacks & Bomboniere'
+  | 'Acessórios & Headshop';
 
 export type StockStatus = 'normal' | 'low' | 'out_of_stock';
 
@@ -30,13 +32,14 @@ export interface Product {
   barcode: string;
   name: string;
   category: ProductCategory;
-  unit: string; // un, pct, lata, garrafa
+  unit: string; // un, cx, pct, saco, lata, garrafa
   costPrice: number; // R$ custo
   sellingPrice: number; // R$ venda
   minStock: number; // estoque mínimo recomendado por unidade
   stock: Record<UnitId, number>; // estoque por unidade
   description?: string;
   supplierId?: string;
+  ageRestricted?: boolean; // 🔞 18+
   createdAt: string;
 }
 
@@ -112,7 +115,12 @@ export interface SaleRecord {
   operatorName: string;
 }
 
-export type MovementType = 'venda' | 'compra_entrada' | 'transferencia_saida' | 'transferencia_entrada' | 'ajuste_inventario';
+export type MovementType =
+  | 'venda'
+  | 'compra_entrada'
+  | 'transferencia_saida'
+  | 'transferencia_entrada'
+  | 'ajuste_inventario';
 
 export interface StockMovement {
   id: string;
@@ -121,10 +129,10 @@ export interface StockMovement {
   productId: string;
   productName: string;
   type: MovementType;
-  quantity: number; // positivo para entrada, negativo para saída
+  quantity: number;
   previousStock: number;
   newStock: number;
-  referenceCode: string; // VND-xxx, TRF-xxx, CMP-xxx, AJU-xxx
+  referenceCode: string;
   operator: string;
   notes?: string;
 }

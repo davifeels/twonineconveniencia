@@ -8,6 +8,7 @@ import {
   ChevronDown,
   Bell,
   ArrowRightLeft,
+  Flame,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { BrandLogo } from './BrandLogo';
@@ -32,14 +33,15 @@ export const Navbar: React.FC = () => {
   ).length;
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        {/* Brand Logo & View Switcher */}
+    <header className="sticky top-0 z-40 w-full bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80">
+      {/* 90% SCREEN WIDTH CONTAINER */}
+      <div className="w-[94%] max-w-[1800px] mx-auto h-16 flex items-center justify-between gap-4">
+        {/* Brand Logo & Mode Switcher */}
         <div className="flex items-center gap-6">
           <div
             onClick={() => setCurrentView('landing')}
             className="cursor-pointer transition-transform hover:scale-[1.02]"
-            title="Ir para Página Comercial TwoNine"
+            title="TwoNine Tabacaria & Conveniência"
           >
             <BrandLogo size="md" variant="full" subtitle="manager" />
           </div>
@@ -48,50 +50,62 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center p-1 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold">
             <button
               onClick={() => setCurrentView('landing')}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg transition ${
                 currentView === 'landing'
                   ? 'bg-slate-800 text-white shadow-sm'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              <Globe className="w-3.5 h-3.5" />
+              <Globe className="w-3.5 h-3.5 text-rose-500" />
               <span>Apresentação Comercial</span>
             </button>
             <button
               onClick={() => setCurrentView('dashboard')}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg transition ${
                 currentView === 'dashboard'
                   ? 'bg-rose-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               <LayoutDashboard className="w-3.5 h-3.5" />
-              <span>Dashboard Administrativo</span>
+              <span>Painel de Gestão (ERP 18+)</span>
             </button>
           </div>
         </div>
 
         {/* Global Controls & Filters */}
         <div className="flex items-center gap-3">
-          {/* Unit Filter Selector (Visible always or in dashboard) */}
+          {/* Real verified Instagram Badge */}
+          <a
+            href="https://www.instagram.com/twonineconveniencia"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-white text-xs font-medium transition group"
+            title="@twonineconveniencia no Instagram"
+          >
+            <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+            <span className="font-mono text-rose-400">@twonineconveniencia</span>
+            <span className="text-[11px] text-slate-500 border-l border-slate-800 pl-2">
+              339 seguidores
+            </span>
+          </a>
+
+          {/* Unit Filter Selector (Visible in dashboard) */}
           {currentView === 'dashboard' && (
             <div className="flex items-center gap-2">
               <span className="hidden lg:inline text-xs font-medium text-slate-400 flex items-center gap-1.5">
                 <Store className="w-3.5 h-3.5 text-rose-500" />
-                Unidade Ativa:
+                Unidade:
               </span>
               <div className="relative">
                 <select
                   value={selectedUnitFilter}
                   onChange={(e) => setSelectedUnitFilter(e.target.value as UnitId | 'all')}
-                  className="bg-slate-900 border border-slate-700/80 text-white text-xs font-semibold rounded-lg pl-3 pr-8 py-1.5 appearance-none focus:outline-none focus:border-rose-500 cursor-pointer shadow-sm"
+                  className="bg-slate-900 border border-slate-700/80 text-white text-xs font-semibold rounded-xl pl-3 pr-8 py-2 appearance-none focus:outline-none focus:border-rose-500 cursor-pointer shadow-sm"
                 >
-                  <option value="all">🏢 Todas as Unidades (Consolidado)</option>
-                  {units.map((u) => (
-                    <option key={u.id} value={u.id}>
-                      📍 {u.name}
-                    </option>
-                  ))}
+                  <option value="all">🏢 Todas as Lojas (Consolidado)</option>
+                  <option value="unit-01">📍 Vila Buritis (24h - Rua da Escola Paraná)</option>
+                  <option value="unit-02">📍 Setor Tradicional (06h às 02h)</option>
                 </select>
                 <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
@@ -102,8 +116,8 @@ export const Navbar: React.FC = () => {
           {currentView === 'dashboard' && (
             <button
               onClick={() => setActiveTab('alerts')}
-              className="relative p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition"
-              title={`${alerts.length} alertas de reposição de estoque`}
+              className="relative p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition"
+              title={`${alerts.length} alertas de estoque (carvão/essências/bebidas)`}
             >
               <Bell className="w-4 h-4" />
               {alerts.length > 0 && (
@@ -118,8 +132,8 @@ export const Navbar: React.FC = () => {
           {currentView === 'dashboard' && (
             <button
               onClick={() => setActiveTab('transfers')}
-              className="relative p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition"
-              title={`${pendingTransfers} transferências ativas`}
+              className="relative p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition"
+              title={`${pendingTransfers} transferências entre lojas ativas`}
             >
               <ArrowRightLeft className="w-4 h-4" />
               {pendingTransfers > 0 && (
@@ -133,8 +147,8 @@ export const Navbar: React.FC = () => {
           {/* Redesign / Brand Identity Guide Button */}
           <button
             onClick={() => setBrandModalOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-rose-500/40 text-rose-300 hover:bg-rose-950/40 hover:text-rose-200 text-xs font-semibold transition"
-            title="Conheça a proposta de Redesign da Logo TwoNine"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-rose-500/40 text-rose-300 hover:bg-rose-950/40 hover:text-rose-200 text-xs font-semibold transition"
+            title="Conheça a proposta de Redesign da Marca TwoNine"
           >
             <Palette className="w-3.5 h-3.5 text-rose-400" />
             <span className="hidden sm:inline">Guia Visual & Redesign</span>
@@ -143,12 +157,16 @@ export const Navbar: React.FC = () => {
           {/* Reset Demo Data */}
           <button
             onClick={() => {
-              if (window.confirm('Deseja restaurar os dados demonstrativos de estoque, vendas e transferências para o estado original?')) {
+              if (
+                window.confirm(
+                  'Deseja restaurar os dados demonstrativos de tabacaria, conveniência, vendas e transferências para o estado original?'
+                )
+              ) {
                 resetToMockData();
               }
             }}
-            className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition"
-            title="Restaurar dados demonstrativos de fábrica"
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition"
+            title="Restaurar dados padrão de demonstração"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
