@@ -17,6 +17,10 @@ import {
   Flame,
   MapPin,
   Clock,
+  Zap,
+  Star,
+  Layers,
+  Phone,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { BrandLogo } from './BrandLogo';
@@ -31,79 +35,199 @@ export const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-slate-100 flex flex-col selection:bg-rose-500 selection:text-white">
-      {/* HERO SECTION - 94% SCREEN WIDTH */}
-      <section className="relative overflow-hidden pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-slate-800/60">
-        {/* Glow ambient background elements */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-rose-600/12 rounded-full blur-[160px] pointer-events-none" />
-        <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
+    <div className="min-h-screen bg-[#05070F] text-slate-100 flex flex-col selection:bg-rose-500 selection:text-white relative overflow-x-hidden">
+      {/* GLOWING AMBIENT LIGHTS IN DEEP RED & HOT PINK */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-gradient-to-b from-rose-600/18 via-pink-600/10 to-transparent rounded-full blur-[160px] pointer-events-none animate-pulse-glow" />
+      <div className="absolute top-[600px] -left-40 w-[550px] h-[550px] bg-gradient-to-tr from-rose-700/12 via-pink-600/10 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-[1200px] -right-40 w-[600px] h-[600px] bg-gradient-to-bl from-pink-600/15 via-rose-600/10 to-transparent rounded-full blur-[150px] pointer-events-none" />
 
-        <div className="w-[94%] max-w-[1800px] mx-auto relative z-10 space-y-10">
+      {/* TOP ANNOUNCEMENT TICKER WITH REAL INSTAGRAM BIO */}
+      <div className="w-full bg-gradient-to-r from-rose-950/60 via-slate-950 to-pink-950/60 border-b border-rose-500/20 py-2.5 px-4 text-center">
+        <div className="w-[94%] max-w-[1800px] mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-rose-300 font-bold">
+            <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-mono">
+              🔞 18+ EXCLUSIVO
+            </span>
+            <span>Somos a TwoNine! Desde 2017 • Tabacaria, Hookah Lounge & Conveniência</span>
+          </div>
+
+          <div className="flex items-center gap-4 text-slate-300 text-[11px]">
+            <span className="flex items-center gap-1.5 text-slate-400">
+              <MapPin className="w-3.5 h-3.5 text-rose-500" />
+              <span>Vila Buritis (na rua da Escola Paraná) & Setor Tradicional</span>
+            </span>
+            <a
+              href="https://www.instagram.com/twonineconveniencia"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-pink-400 hover:text-pink-300 font-mono font-semibold transition hidden sm:inline"
+            >
+              @twonineconveniencia (339 seguidores)
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* HERO SECTION - 94% WIDESCREEN LUXURY */}
+      <section className="relative pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-rose-950/40">
+        <div className="w-[94%] max-w-[1800px] mx-auto relative z-10 space-y-12">
           <div className="text-center max-w-5xl mx-auto space-y-6">
-            {/* Real Instagram Bio Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 font-bold text-xs">
-                <span>🔞</span>
-                <span>Para Maiores de 18 Anos</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-xs font-semibold">
-                <Flame className="w-3.5 h-3.5 text-rose-500" />
-                <span>Somos a TwoNine! Desde 2017</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-medium">
-                <MapPin className="w-3.5 h-3.5 text-rose-500" />
-                <span>Vila Buritis (na rua da Escola Paraná) & Setor Tradicional</span>
-              </span>
+            {/* Luxe Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-rose-500/30 text-xs font-semibold text-rose-200 shadow-[0_0_20px_rgba(225,29,72,0.2)]">
+              <Flame className="w-4 h-4 text-rose-500 animate-pulse" />
+              <span className="text-white">Tabacaria & Hookah Lounge Premium</span>
+              <span className="text-rose-500">•</span>
+              <span className="text-pink-400">Conveniência 24 Horas Planaltina-DF</span>
             </div>
 
-            {/* EXACT REQUIRED TITLE */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.08]">
+            {/* REQUIRED TITLE WITH LUXURY GRADIENT */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.06]">
               Suas duas unidades.{' '}
-              <span className="bg-gradient-to-r from-rose-500 via-rose-400 to-amber-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-rose-500 via-pink-500 to-rose-400 bg-clip-text text-transparent drop-shadow-sm">
                 Uma gestão muito mais inteligente.
               </span>
             </h1>
 
-            {/* EXACT REQUIRED SUBTITLE */}
+            {/* REQUIRED SUBTITLE */}
             <p className="text-base sm:text-xl lg:text-2xl text-slate-300 max-w-4xl mx-auto font-normal leading-relaxed">
               Centralize o controle de estoque, acompanhe as operações e tenha uma visão completa das suas unidades em um único sistema.
             </p>
 
             <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto">
-              Projetado sob medida para a operação real de <strong className="text-white">Tabacaria, Hookah Lounge & Conveniência</strong>: essências premium, carvões de coco, sedas, gelos saborizados, energéticos e mercearia noturna.
+              Projetado para os bastidores de quem opera essências nobres, carvões de coco, sedas, gelo saborizado, copões de drinks e conveniência noturna com o padrão de grandes redes.
             </p>
 
-            {/* EXACT REQUIRED BUTTONS */}
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+            {/* HIGH-IMPACT DUAL BUTTONS */}
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
               <button
                 onClick={() => setCurrentView('dashboard')}
-                className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-black text-sm sm:text-base transition-all duration-200 shadow-xl shadow-rose-900/40 hover:scale-105"
+                className="group relative flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-rose-600 hover:from-rose-500 hover:to-pink-500 text-white font-black text-sm sm:text-base transition-all duration-300 shadow-[0_0_35px_rgba(244,63,94,0.4)] hover:shadow-[0_0_45px_rgba(244,63,94,0.6)] hover:scale-105"
               >
+                <div className="w-2.5 h-2.5 rounded-full bg-white animate-ping"></div>
                 <span>Explorar demonstração</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
 
               <button
-                onClick={() => scrollToSection('gestao-centralizada')}
-                className="flex items-center gap-2 px-7 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 font-bold text-sm sm:text-base transition"
+                onClick={() => scrollToSection('vitrine-tabacaria')}
+                className="flex items-center gap-2 px-7 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-rose-500/30 hover:border-rose-500/60 font-bold text-sm sm:text-base transition"
               >
+                <Flame className="w-4 h-4 text-rose-500" />
                 <span>Conhecer a plataforma</span>
               </button>
             </div>
           </div>
 
-          {/* Enterprise Widescreen Live Mockup (Spans 94% Width) */}
-          <div className="w-full rounded-2xl bg-slate-900/95 border border-slate-800 shadow-2xl overflow-hidden backdrop-blur-xl">
+          {/* LUXURY PRODUCT CATEGORIES SHOWCASE (IMAGENS FICTÍCIAS & CARDS LUXO) */}
+          <div id="vitrine-tabacaria" className="pt-6">
+            <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
+              <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold">
+                Linha de Produtos & Insumos TwoNine
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black text-white">
+                Os Pilares do Lounge & Balcão 24h
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {/* Card 1: Hookah & Essências */}
+              <div className="glass-panel glass-panel-hover p-6 rounded-3xl space-y-4 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-rose-600/10 rounded-full blur-2xl group-hover:bg-rose-600/20 transition"></div>
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-600 to-pink-500 p-3 flex items-center justify-center text-white shadow-lg shadow-rose-950/60">
+                  <Flame className="w-8 h-8" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-pink-400 font-bold uppercase tracking-wider">
+                    Tabacaria & Hookah
+                  </span>
+                  <h3 className="text-lg font-bold text-white mt-1">Essências Selecionadas</h3>
+                  <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                    Sabores campeões das linhas Nay, Zomo, Ziggy e On-Air com rotação semanal e reposição em caixas fechadas.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-rose-950/60 flex items-center justify-between text-xs">
+                  <span className="text-slate-400">Controle por unidade</span>
+                  <span className="text-pink-400 font-mono font-bold">18+ Lounge</span>
+                </div>
+              </div>
+
+              {/* Card 2: Carvão de Coco */}
+              <div className="glass-panel glass-panel-hover p-6 rounded-3xl space-y-4 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-pink-600/10 rounded-full blur-2xl group-hover:bg-pink-600/20 transition"></div>
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-600 to-rose-700 p-3 flex items-center justify-center text-white shadow-lg shadow-rose-950/60">
+                  <Boxes className="w-8 h-8" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-rose-400 font-bold uppercase tracking-wider">
+                    Insumos de Queima
+                  </span>
+                  <h3 className="text-lg font-bold text-white mt-1">Carvão de Coco & Alumínio</h3>
+                  <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                    Carvões hexagonais Art Coco e Calesco de longa duração (1kg), sem odor e papel alumínio 40 micras esticado.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-rose-950/60 flex items-center justify-between text-xs">
+                  <span className="text-slate-400">Transferência rápida</span>
+                  <span className="text-rose-400 font-mono font-bold">Alta Densidade</span>
+                </div>
+              </div>
+
+              {/* Card 3: Gelo Saborizado & Copões */}
+              <div className="glass-panel glass-panel-hover p-6 rounded-3xl space-y-4 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 rounded-full blur-2xl group-hover:bg-rose-500/20 transition"></div>
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-500 to-amber-500 p-3 flex items-center justify-center text-white shadow-lg shadow-rose-950/60">
+                  <Zap className="w-8 h-8" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">
+                    Bebidas & Montagem
+                  </span>
+                  <h3 className="text-lg font-bold text-white mt-1">Gelo de Sabor & Copão 700ml</h3>
+                  <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                    Gelos gourmet de coco com maracujá, copos Twister com tampa bolha e energéticos Baly, Monster e Red Bull.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-rose-950/60 flex items-center justify-between text-xs">
+                  <span className="text-slate-400">Pico noturno</span>
+                  <span className="text-amber-400 font-mono font-bold">24 Horas</span>
+                </div>
+              </div>
+
+              {/* Card 4: Acessórios & Headshop */}
+              <div className="glass-panel glass-panel-hover p-6 rounded-3xl space-y-4 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl group-hover:bg-pink-500/20 transition"></div>
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-600 p-3 flex items-center justify-center text-white shadow-lg shadow-rose-950/60">
+                  <Sparkles className="w-8 h-8" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-pink-400 font-bold uppercase tracking-wider">
+                    Tabacaria & Headshop
+                  </span>
+                  <h3 className="text-lg font-bold text-white mt-1">Clippers, Sedas & Roshs</h3>
+                  <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                    Isqueiros Clipper recarregáveis colecionáveis, sedas Smoking Master King Size com piteira e roshs Phunnel.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-rose-950/60 flex items-center justify-between text-xs">
+                  <span className="text-slate-400">Conveniência balcão</span>
+                  <span className="text-pink-400 font-mono font-bold">Linha Premium</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ENTERPRISE ERP INTERACTIVE PREVIEW */}
+          <div className="mt-8 rounded-3xl bg-slate-950/90 border border-rose-500/30 shadow-[0_0_50px_rgba(225,29,72,0.15)] overflow-hidden">
             {/* Window bar */}
-            <div className="px-6 py-4 border-b border-slate-800 bg-slate-950/80 flex flex-wrap items-center justify-between gap-3">
+            <div className="px-6 py-4 border-b border-slate-800 bg-slate-900/90 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-rose-500"></div>
+                <div className="w-3 h-3 rounded-full bg-pink-500"></div>
                 <div className="w-3 h-3 rounded-full bg-amber-500"></div>
-                <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                <span className="ml-3 text-xs font-mono text-slate-400 flex items-center gap-2">
-                  <span className="text-slate-500 font-bold">twonine.manager.enterprise</span>
-                  <span className="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded font-mono">
-                    Tabacaria & Conveniência Multi-Store
+                <span className="ml-3 text-xs font-mono text-slate-300 flex items-center gap-2">
+                  <span className="text-white font-bold">twonine.manager.enterprise</span>
+                  <span className="bg-rose-500/20 text-rose-300 text-[10px] px-2 py-0.5 rounded font-mono font-bold border border-rose-500/30">
+                    ERP Tabacaria & Hookah Multiunidade
                   </span>
                 </span>
               </div>
@@ -112,17 +236,17 @@ export const LandingPage: React.FC = () => {
                   onClick={() => setActivePreviewTab('kpis')}
                   className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition ${
                     activePreviewTab === 'kpis'
-                      ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                      ? 'bg-rose-600 text-white shadow-md'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  Visão Consolidada
+                  Visão Geral Consolidada
                 </button>
                 <button
                   onClick={() => setActivePreviewTab('transfers')}
                   className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition ${
                     activePreviewTab === 'transfers'
-                      ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                      ? 'bg-rose-600 text-white shadow-md'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -132,74 +256,74 @@ export const LandingPage: React.FC = () => {
                   onClick={() => setActivePreviewTab('stores')}
                   className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition ${
                     activePreviewTab === 'stores'
-                      ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                      ? 'bg-rose-600 text-white shadow-md'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  Unidades Físicas
+                  Unidades Físicas (Planaltina-DF)
                 </button>
               </div>
             </div>
 
             {/* Window Content */}
-            <div className="p-6 lg:p-8 bg-slate-950/60">
+            <div className="p-6 lg:p-8 bg-[#05070F]/80">
               {activePreviewTab === 'kpis' && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800">
+                    <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800">
                       <span className="text-xs font-medium text-slate-400 block mb-1">
-                        Catálogo Tabacaria & Bebidas
+                        Catálogo de Tabacaria & Bebidas
                       </span>
                       <div className="text-3xl font-black text-white">{metrics.totalProducts} SKUs</div>
                       <span className="text-xs text-rose-400 font-semibold mt-1 inline-block">
-                        Essências, carvões, energéticos & gelo
+                        Essências, carvões & energéticos
                       </span>
                     </div>
 
-                    <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800">
+                    <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800">
                       <span className="text-xs font-medium text-slate-400 block mb-1">
-                        Estoque Físico Total
+                        Saldo Físico Geral
                       </span>
-                      <div className="text-3xl font-black text-rose-400">{metrics.totalStockUnits} un</div>
+                      <div className="text-3xl font-black text-pink-400">{metrics.totalStockUnits} un</div>
                       <span className="text-xs text-slate-400 mt-1 inline-block">
-                        Integrados nas 2 unidades do DF
+                        Distribuídos nas 2 unidades do DF
                       </span>
                     </div>
 
-                    <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800">
+                    <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800">
                       <span className="text-xs font-medium text-slate-400 block mb-1">
-                        Capital em Estoque
+                        Patrimônio em Estoque (Custo)
                       </span>
                       <div className="text-3xl font-black text-emerald-400">
                         R$ {metrics.totalStockCostValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                       </div>
                       <span className="text-xs text-slate-400 mt-1 inline-block">
-                        Preço de custo dos lotes
+                        Lotes adquiridos
                       </span>
                     </div>
 
-                    <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800">
+                    <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800">
                       <span className="text-xs font-medium text-slate-400 block mb-1">
-                        Alertas de Ruptura
+                        Alertas de Reposição
                       </span>
                       <div className="text-3xl font-black text-amber-400">{metrics.lowStockCount} alertas</div>
                       <span className="text-xs text-amber-500/90 font-medium mt-1 inline-block">
-                        Reposição preventiva de final de semana
+                        Prevenção para o final de semana
                       </span>
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="p-5 rounded-2xl bg-gradient-to-r from-rose-950/40 via-slate-900 to-pink-950/40 border border-rose-500/30 flex flex-col md:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 shrink-0">
+                      <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 shrink-0">
                         <ArrowRightLeft className="w-6 h-6" />
                       </div>
                       <div>
                         <div className="text-sm font-bold text-white">
-                          Conexão Direta: Vila Buritis (Escola Paraná) ↔ Setor Tradicional
+                          Conexão Logística: Vila Buritis (Escola Paraná) ↔ Setor Tradicional
                         </div>
                         <div className="text-xs text-slate-400">
-                          Equilíbrio de cargas de essências, caixas de carvão e sacos de gelo em poucos segundos.
+                          Equilibre essências de alto giro e caixas de carvão entre as lojas sem perder o controle contábil.
                         </div>
                       </div>
                     </div>
@@ -208,9 +332,9 @@ export const LandingPage: React.FC = () => {
                         setCurrentView('dashboard');
                         setActiveTab('transfers');
                       }}
-                      className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white border border-slate-700 transition shrink-0"
+                      className="px-6 py-3 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-black text-xs shadow-lg shadow-rose-950/50 transition shrink-0"
                     >
-                      Abrir Tela de Transferências →
+                      Testar Transferência no ERP →
                     </button>
                   </div>
                 </div>
@@ -220,9 +344,9 @@ export const LandingPage: React.FC = () => {
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                     <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
-                      <span className="text-slate-400 font-mono text-[10px] uppercase">Origem</span>
+                      <span className="text-slate-400 font-mono text-[10px] uppercase font-bold">Origem</span>
                       <div className="font-bold text-white text-sm">Unidade 01 — Vila Buritis (24h)</div>
-                      <div className="text-emerald-400 font-medium">Saldo: 48 caixas (Carvão Art Coco 1kg)</div>
+                      <div className="text-emerald-400 font-medium font-mono">Saldo: 48 caixas (Carvão Art Coco 1kg)</div>
                     </div>
                     <div className="p-4 rounded-xl bg-slate-900 border border-rose-500/30 flex flex-col items-center justify-center text-center space-y-1">
                       <ArrowRightLeft className="w-6 h-6 text-rose-400" />
@@ -230,9 +354,9 @@ export const LandingPage: React.FC = () => {
                       <div className="text-slate-400 text-[11px]">TRF-2026-001 • Concluída</div>
                     </div>
                     <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
-                      <span className="text-slate-400 font-mono text-[10px] uppercase">Destino</span>
+                      <span className="text-slate-400 font-mono text-[10px] uppercase font-bold">Destino</span>
                       <div className="font-bold text-white text-sm">Unidade 02 — Setor Tradicional</div>
-                      <div className="text-amber-400 font-medium">Estoque Abastecido: +12 caixas</div>
+                      <div className="text-amber-400 font-medium font-mono">Estoque Abastecido: +12 caixas</div>
                     </div>
                   </div>
                 </div>
@@ -247,12 +371,12 @@ export const LandingPage: React.FC = () => {
                           <Store className="w-4 h-4 text-rose-500" />
                           {u.name}
                         </span>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">
+                        <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-slate-800 text-rose-400 font-mono font-bold">
                           {u.tag}
                         </span>
                       </div>
                       <p className="text-xs text-slate-300">{u.address}</p>
-                      <span className="text-[11px] text-rose-400 font-medium block">
+                      <span className="text-[11px] text-pink-400 font-medium block">
                         📍 {u.reference}
                       </span>
                       <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
@@ -269,7 +393,7 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* SEÇÃO: GESTÃO CENTRALIZADA */}
-      <section id="gestao-centralizada" className="py-20 border-b border-slate-800/60 bg-slate-950/40">
+      <section id="gestao-centralizada" className="py-20 border-b border-rose-950/40 bg-slate-950/60">
         <div className="w-[94%] max-w-[1800px] mx-auto space-y-12">
           <div className="max-w-4xl mx-auto text-center space-y-4">
             <span className="text-xs font-bold uppercase tracking-wider text-rose-500 font-mono flex items-center justify-center gap-1.5">
@@ -285,8 +409,8 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center">
+            <div className="glass-panel p-6 rounded-3xl space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center">
                 <Store className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white">Alternância Ágil de Unidades</h3>
@@ -295,8 +419,8 @@ export const LandingPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
+            <div className="glass-panel p-6 rounded-3xl space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-pink-500/10 border border-pink-500/20 text-pink-400 flex items-center justify-center">
                 <ArrowRightLeft className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white">Sinergia entre Lojas</h3>
@@ -305,8 +429,8 @@ export const LandingPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
+            <div className="glass-panel p-6 rounded-3xl space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white">Auditoria Completa & Segurança</h3>
@@ -319,7 +443,7 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* SEÇÃO: CONTROLE DE ESTOQUE */}
-      <section className="py-20 border-b border-slate-800/60">
+      <section className="py-20 border-b border-rose-950/40">
         <div className="w-[94%] max-w-[1800px] mx-auto space-y-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -374,11 +498,11 @@ export const LandingPage: React.FC = () => {
             </div>
 
             {/* Visual Inventory Graphic Card */}
-            <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
+            <div className="p-6 rounded-3xl bg-slate-900/90 border border-rose-500/20 shadow-2xl space-y-4">
               <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                 <div className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
                   <Flame className="w-4 h-4 text-rose-500" />
-                  Amostra de Estoque Tabacaria & Bebidas
+                  Saldo em Tempo Real Tabacaria & Bebidas
                 </div>
                 <span className="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
                   Sincronizado
@@ -386,7 +510,6 @@ export const LandingPage: React.FC = () => {
               </div>
 
               <div className="space-y-3 text-xs">
-                {/* Item 1 */}
                 <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
                   <div>
                     <div className="font-bold text-white">Carvão de Coco Hexagonal 1kg (60 peças)</div>
@@ -400,7 +523,6 @@ export const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Item 2 */}
                 <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
                   <div>
                     <div className="font-bold text-white">Essência Nay Fresh Peach 50g</div>
@@ -414,7 +536,6 @@ export const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Item 3 */}
                 <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
                   <div>
                     <div className="font-bold text-white">Gelo Saborizado Coco c/ Maracujá 200ml</div>
@@ -431,7 +552,7 @@ export const LandingPage: React.FC = () => {
 
               <div className="p-3.5 rounded-xl bg-rose-950/20 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-rose-400 shrink-0" />
-                <span>O sistema sugere a transferência preventiva de 15 un de essência da Vila Buritis para o Setor Tradicional.</span>
+                <span>O sistema sugere a transferência de 15 un de essência da Vila Buritis para o Setor Tradicional.</span>
               </div>
             </div>
           </div>
@@ -439,7 +560,7 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* SEÇÃO: CONTROLE OPERACIONAL */}
-      <section className="py-20 border-b border-slate-800/60 bg-slate-950/40">
+      <section className="py-20 border-b border-rose-950/40 bg-slate-950/40">
         <div className="w-[94%] max-w-[1800px] mx-auto space-y-12">
           <div className="max-w-4xl mx-auto text-center space-y-4">
             <span className="text-xs font-bold uppercase tracking-wider text-rose-500 font-mono">
@@ -465,7 +586,7 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-400 flex items-center justify-center">
                 <Users className="w-5 h-5" />
               </div>
               <h3 className="font-bold text-white text-base">Gestão de Fornecedores</h3>
@@ -498,7 +619,7 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* SEÇÃO: DASHBOARD */}
-      <section className="py-20 border-b border-slate-800/60">
+      <section className="py-20 border-b border-rose-950/40">
         <div className="w-[94%] max-w-[1800px] mx-auto space-y-10">
           <div className="text-center max-w-4xl mx-auto space-y-4">
             <span className="text-xs font-bold uppercase tracking-wider text-rose-500 font-mono">
@@ -512,18 +633,18 @@ export const LandingPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="rounded-2xl bg-slate-900 border border-slate-800 p-6 md:p-8 space-y-6 shadow-2xl">
+          <div className="rounded-3xl bg-slate-900/90 border border-slate-800 p-6 md:p-8 space-y-6 shadow-2xl">
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
               <div>
                 <h4 className="font-bold text-white text-lg flex items-center gap-2">
                   <Flame className="w-5 h-5 text-rose-500" />
-                  Painel TWONINE MANAGER • Tabacaria & Conveniência
+                  Painel TWONINE MANAGER • Tabacaria & Hookah
                 </h4>
                 <p className="text-xs text-slate-400">Navegue pelas 11 áreas gerenciais do sistema</p>
               </div>
               <button
                 onClick={() => setCurrentView('dashboard')}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-black text-xs transition shadow-md shadow-rose-950/50"
               >
                 <span>Acessar Dashboard Completo</span>
                 <ChevronRight className="w-4 h-4" />
@@ -545,7 +666,7 @@ export const LandingPage: React.FC = () => {
                     setCurrentView('dashboard');
                     setActiveTab(item.tab);
                   }}
-                  className="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-rose-500/50 hover:bg-slate-900 transition flex flex-col items-center gap-2 group"
+                  className="p-4 rounded-2xl bg-slate-950 border border-slate-800 hover:border-rose-500/50 hover:bg-slate-900 transition flex flex-col items-center gap-2 group"
                 >
                   <item.icon className="w-5 h-5 text-slate-400 group-hover:text-rose-400 transition" />
                   <span className="font-semibold text-slate-300 group-hover:text-white transition">
@@ -559,7 +680,7 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* SEÇÃO: BENEFÍCIOS */}
-      <section className="py-20 border-b border-slate-800/60 bg-slate-950/40">
+      <section className="py-20 border-b border-rose-950/40 bg-slate-950/40">
         <div className="w-[94%] max-w-[1800px] mx-auto space-y-12">
           <div className="text-center max-w-4xl mx-auto space-y-4">
             <span className="text-xs font-bold uppercase tracking-wider text-rose-500 font-mono">
@@ -633,7 +754,7 @@ export const LandingPage: React.FC = () => {
             {/* EXACT REQUIRED CTA BUTTON */}
             <button
               onClick={() => setCurrentView('dashboard')}
-              className="flex items-center gap-2 px-8 py-4 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-base transition-all duration-200 shadow-xl shadow-rose-900/40 hover:scale-105"
+              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-black text-base transition-all duration-200 shadow-xl shadow-rose-900/50 hover:scale-105"
             >
               <span>Explorar demonstração</span>
               <ArrowRight className="w-5 h-5" />
@@ -641,9 +762,9 @@ export const LandingPage: React.FC = () => {
 
             <button
               onClick={() => setBrandModalOpen(true)}
-              className="flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-semibold text-sm transition"
+              className="flex items-center gap-2 px-7 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-rose-500/30 font-semibold text-sm transition"
             >
-              <Sparkles className="w-4 h-4 text-rose-400" />
+              <Sparkles className="w-4 h-4 text-pink-400" />
               <span>Ver Redesign da Marca</span>
             </button>
           </div>
